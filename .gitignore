@@ -1,0 +1,42 @@
+# Dependencies
+**/node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+**/dist/
+**/build/
+.build/
+.out/
+.output/
+nitro/
+.tanstack/
+.tscache
+*.tsbuildinfo
+
+# Coverage and test outputs
+coverage/
+.nyc_output/
+
+# Env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs and temporary files
+*.log
+.DS_Store
+*.swp
+Session.vim
+.compile
+
+# Editor/IDE files
+.idea/
+
+# Platform-specific
+*.pem
+
+.claude/worktrees/
+.claude/memory/
