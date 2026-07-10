@@ -90,6 +90,15 @@ export const deleteRegistrationFn = createServerFn({ method: "POST" })
   .validator(z.object({ classId: z.number().int(), userId: z.number().int() }))
   .handler(({ data }) => runRepo(() => repo.deleteRegistration(data.classId, data.userId)));
 
+export const setRegistrationAttendanceFn = createServerFn({ method: "POST" })
+  .middleware([adminAuthMiddleware])
+  .validator(
+    z.object({ classId: z.number().int(), userId: z.number().int(), attended: z.boolean() }),
+  )
+  .handler(({ data }) =>
+    runRepo(() => repo.setRegistrationAttendance(data.classId, data.userId, data.attended)),
+  );
+
 export type ClassListItem = Awaited<ReturnType<typeof listClassesFn>>[number];
 export type ClassDetail = NonNullable<Awaited<ReturnType<typeof getClassFn>>>;
 export type Registration = ClassDetail["registrations"][number];

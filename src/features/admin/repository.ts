@@ -308,3 +308,16 @@ export async function deleteRegistration(classId: number, userId: number) {
   });
   return result.count > 0;
 }
+
+/** Set or clear a registration's check-in, driving the derived CONFIRMED/NOSHOW state. */
+export async function setRegistrationAttendance(
+  classId: number,
+  userId: number,
+  attended: boolean,
+) {
+  const result = await prisma.registration.updateMany({
+    where: { classId, userId },
+    data: { checkedInAt: attended ? new Date() : null },
+  });
+  return result.count > 0;
+}

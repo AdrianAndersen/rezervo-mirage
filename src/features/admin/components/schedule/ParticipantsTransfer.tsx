@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Badge,
   Button,
   Card,
@@ -8,9 +9,10 @@ import {
   Stack,
   Text,
   TextInput,
+  Tooltip,
 } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IconDice5, IconPlus, IconSearch, IconX } from "@tabler/icons-react";
+import { IconCheck, IconDice5, IconPlus, IconSearch, IconX } from "@tabler/icons-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
@@ -20,6 +22,7 @@ import {
   classKeys,
   deleteRegistrationFn,
   type Registration,
+  setRegistrationAttendanceFn,
   type User,
 } from "@/features/admin/server";
 import { showErrorNotification } from "@/shared/utils/notifications";
@@ -60,6 +63,14 @@ export default function ParticipantsTransfer({
   });
   const random = useMutation({
     mutationFn: (count: number) => addRandomRegistrationsFn({ data: { classId, count } }),
+    onSuccess: invalidate,
+    onError,
+  });
+  const attendance = useMutation({
+    mutationFn: (vars: { userId: number; attended: boolean }) =>
+      setRegistrationAttendanceFn({
+        data: { classId, userId: vars.userId, attended: vars.attended },
+      }),
     onSuccess: invalidate,
     onError,
   });
@@ -130,25 +141,49 @@ export default function ParticipantsTransfer({
           </Text>
           <ScrollArea h={PANEL_HEIGHT}>
             <Stack gap={2}>
-              {registrations.map((r, index) => (
-                <Row
-                  key={r.id}
-                  label={r.user.name}
-                  icon={<IconX size={14} />}
-                  onClick={() => remove.mutate(r.userId)}
-                  trailing={
-                    index >= totalSlots ? (
-                      <Badge size={"xs"} color={"orange"} variant={"light"}>
-                        venteliste {index - totalSlots + 1}
+              {registrations.map((r, index) => {
+                const attended = r.checkedInAt !== null;
+                const waitlisted = index >= totalSlots;
+                return (
+                  <Group
+                    key={r.id}
+                    gap={"xs"}
+                    wrap={"nowrap"}
+                    justify={"space-between"}
+                    px={"xs"}
+                    py={4}
+                  >
+                    <Text size={"sm"} style={{ flex: 1, minWidth: 0 }} truncate>
+                      {r.user.name}
+                    </Text>
+                    <Tooltip label={attended ? "Fjern møtt-status" : "Marker som møtt"} withArrow>
+                      <Badge
+                        size={"xs"}
+                        variant={attended ? "filled" : "light"}
+                        color={attended ? "green" : waitlisted ? "orange" : "rezervo"}
+                        style={{ cursor: "pointer" }}
+                        {...(attended ? { leftSection: <IconCheck size={10} /> } : {})}
+                        onClick={() => attendance.mutate({ userId: r.userId, attended: !attended })}
+                      >
+                        {attended
+                          ? "møtt"
+                          : waitlisted
+                            ? `venteliste ${index - totalSlots + 1}`
+                            : "påmeldt"}
                       </Badge>
-                    ) : (
-                      <Badge size={"xs"} color={"rezervo"} variant={"light"}>
-                        påmeldt
-                      </Badge>
-                    )
-                  }
-                />
-              ))}
+                    </Tooltip>
+                    <ActionIcon
+                      variant={"subtle"}
+                      color={"gray"}
+                      size={"sm"}
+                      aria-label={"Fjern deltaker"}
+                      onClick={() => remove.mutate(r.userId)}
+                    >
+                      <IconX size={14} />
+                    </ActionIcon>
+                  </Group>
+                );
+              })}
               {registrations.length === 0 && <Empty text={"Ingen påmeldte ennå"} />}
             </Stack>
           </ScrollArea>

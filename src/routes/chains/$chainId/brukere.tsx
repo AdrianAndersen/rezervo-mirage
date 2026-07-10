@@ -1,6 +1,8 @@
-import { Badge, Container, Modal, Text } from "@mantine/core";
+import { ActionIcon, Badge, Container, Group, Modal, Text, Tooltip } from "@mantine/core";
+import { useClipboard } from "@mantine/hooks";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
 
 import UserForm, { type UserFormValues } from "@/features/admin/components/forms/UserForm";
 import CrudTable, { SlugCell, type Column } from "@/features/admin/components/ui/CrudTable";
@@ -21,6 +23,30 @@ export const Route = createFileRoute("/chains/$chainId/brukere")({
   component: UsersPage,
 });
 
+function PasswordCell({ user }: { user: User }) {
+  const clipboard = useClipboard({ timeout: 1200 });
+  return (
+    <Group gap={6} wrap={"nowrap"}>
+      <SlugCell>••••••</SlugCell>
+      <Tooltip label={clipboard.copied ? "Kopiert" : "Kopier passord"} withArrow>
+        <ActionIcon
+          data-testid={`copy-password-${user.id}`}
+          variant={"subtle"}
+          color={"gray"}
+          size={"sm"}
+          aria-label={"Kopier passord"}
+          onClick={() => {
+            clipboard.copy(user.password);
+            showSuccessNotification("Passord kopiert");
+          }}
+        >
+          {clipboard.copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
+        </ActionIcon>
+      </Tooltip>
+    </Group>
+  );
+}
+
 const columns: Column<User>[] = [
   {
     header: "Navn",
@@ -31,6 +57,7 @@ const columns: Column<User>[] = [
     ),
   },
   { header: "Brukernavn", render: (u) => <SlugCell>{u.username}</SlugCell> },
+  { header: "Passord", render: (u) => <PasswordCell user={u} /> },
   {
     header: "Rolle",
     render: (u) =>
