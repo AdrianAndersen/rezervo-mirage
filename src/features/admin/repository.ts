@@ -208,7 +208,6 @@ export type ClassInput = {
   bookingOpensAt: Date;
   room?: string | null;
   totalSlots: number;
-  isBookable: boolean;
   isCancelled: boolean;
   cancelText?: string | null;
   instructorIds: number[];
@@ -234,7 +233,6 @@ export function createClasses(input: ClassInput, weeks: number) {
           bookingOpensAt: shiftWeeks(input.bookingOpensAt, week),
           room: input.room ?? null,
           totalSlots: input.totalSlots,
-          isBookable: input.isBookable,
           isCancelled: input.isCancelled,
           cancelText: input.cancelText ?? null,
           instructors: { connect: input.instructorIds.map((id) => ({ id })) },

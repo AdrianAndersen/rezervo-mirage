@@ -1,16 +1,6 @@
 import { serializeClass, type ClassWithDetails } from "./serialize";
 import type { ScheduleDay, ScheduleResponse } from "./types";
 
-const WEEKDAY_NAMES = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-] as const;
-
 export const DEFAULT_SCHEDULE_DAYS = 7;
 export const MAX_SCHEDULE_DAYS = 90;
 
@@ -51,7 +41,6 @@ export function buildScheduleResponse(
     date.setUTCDate(start.getUTCDate() + i);
     const key = date.toISOString().slice(0, 10);
     scheduleDays.push({
-      dayName: WEEKDAY_NAMES[date.getUTCDay()] as string,
       date: key,
       classes: (classesByDay.get(key) ?? []).map(serializeClass),
     });

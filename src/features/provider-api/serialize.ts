@@ -48,6 +48,20 @@ export function serializeChainResponse(chain: ChainWithBranches): ChainResponse 
   };
 }
 
+/**
+ * Whether a class can be booked at `now`. Bookability is derived from time, not
+ * stored: a class opens for booking once `bookingOpensAt` has passed and stays
+ * open until it starts. This mirrors how rezervo computes `is_bookable` from
+ * `bookingOpensAt`, so a booking rezervo considers valid is never rejected here.
+ */
+export function classBookableAt(
+  cls: Pick<ClassWithDetails, "bookingOpensAt" | "startTime">,
+  now: Date = new Date(),
+): boolean {
+  const nowMs = now.getTime();
+  return cls.bookingOpensAt.getTime() <= nowMs && nowMs < cls.startTime.getTime();
+}
+
 /** Registrations sorted into booking order (earliest first). */
 function bookingOrder(
   registrations: ClassWithDetails["registrations"],
@@ -80,7 +94,6 @@ export function serializeClass(cls: ClassWithDetails): RezervoMirageClass {
     instructors: cls.instructors.map((instructor) => ({
       name: instructor.name,
     })),
-    isBookable: cls.isBookable,
     isCancelled: cls.isCancelled,
     cancelText: cls.cancelText,
     totalSlots: cls.totalSlots,

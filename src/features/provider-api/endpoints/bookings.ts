@@ -5,7 +5,7 @@ import {
   classParamsSchema,
   createBookingRequestSchema,
 } from "../schemas";
-import { registrationRank } from "../serialize";
+import { classBookableAt, registrationRank } from "../serialize";
 
 export const createBookingEndpoint = defineEndpoint({
   method: "POST",
@@ -32,8 +32,8 @@ export const createBookingEndpoint = defineEndpoint({
     if (existing.isCancelled) {
       throw new HttpError(409, "Class is cancelled");
     }
-    if (!existing.isBookable) {
-      throw new HttpError(409, "Class is not bookable");
+    if (!classBookableAt(existing)) {
+      throw new HttpError(409, "Class is not open for booking");
     }
     const { cls, registrationId } = await repo.createBooking(userId, existing);
     const rank = registrationRank(cls, registrationId);

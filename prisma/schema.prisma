@@ -58,7 +58,6 @@ model Class {
   endTime        DateTime
   bookingOpensAt DateTime
   room           String?
-  isBookable     Boolean
   isCancelled    Boolean
   cancelText     String?
   totalSlots     Int

@@ -17,7 +17,7 @@ export const loginEndpoint = defineEndpoint({
     if (user === null || user.password === null || user.password !== body.password) {
       throw new HttpError(401, "Invalid credentials");
     }
-    const { token, expiresIn } = createAccessToken(user.id, chain.id);
-    return { accessToken: token, tokenType: "Bearer" as const, expiresIn, userId: user.id };
+    const { token } = createAccessToken(user.id, chain.id);
+    return { accessToken: token };
   },
 });

@@ -65,7 +65,6 @@ export const mirageClassSchema = z
     location: classLocationSchema,
     activity: activitySchema,
     instructors: z.array(instructorSchema),
-    isBookable: z.boolean(),
     isCancelled: z.boolean(),
     cancelText: z.string().nullable(),
     totalSlots: z.number().int(),
@@ -79,7 +78,6 @@ export const mirageClassSchema = z
 
 export const scheduleDaySchema = z
   .object({
-    dayName: z.string(),
     date: z.string().meta({ format: "date", examples: ["2026-07-10"] }),
     classes: z.array(mirageClassSchema),
   })
@@ -96,12 +94,7 @@ export const loginRequestSchema = z
   .meta({ id: "LoginRequest" });
 
 export const loginResponseSchema = z
-  .object({
-    accessToken: z.string(),
-    tokenType: z.literal("Bearer"),
-    expiresIn: z.number().int(),
-    userId: z.number().int(),
-  })
+  .object({ accessToken: z.string() })
   .meta({ id: "LoginResponse" });
 
 // Sessions & bookings -------------------------------------------------------
@@ -137,8 +130,15 @@ export const classParamsSchema = z.object({
 });
 
 export const scheduleQuerySchema = z.object({
-  from: z.string().optional(),
-  days: z.coerce.number().int().optional(),
+  from: z
+    .string()
+    .meta({ format: "date", examples: ["2026-07-10"] })
+    .optional(),
+  days: z.coerce
+    .number()
+    .int()
+    .meta({ minimum: 1, examples: [7] })
+    .optional(),
   locations: z.string().optional(),
 });
 

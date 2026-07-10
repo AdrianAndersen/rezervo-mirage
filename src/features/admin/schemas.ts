@@ -111,7 +111,6 @@ export const classCoreSchema = z.object({
   bookingOpensAt: z.date(),
   room: optionalText,
   totalSlots: z.number().int().min(0),
-  isBookable: z.boolean().default(true),
   isCancelled: z.boolean().default(false),
   cancelText: optionalText,
   instructorIds: z.number().int().array().default([]),

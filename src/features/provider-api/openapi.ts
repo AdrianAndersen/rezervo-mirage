@@ -13,6 +13,36 @@ import { apiErrorSchema } from "./schemas";
 
 const API_VERSION = "1.0.0";
 
+/**
+ * `z.number().int()` (Zod v4) carries JS safe-integer bounds. They are an
+ * artifact of the TS `number` type, not a real domain constraint, and generate
+ * noisy `conint(ge=..., le=...)` constraints in the generated Python client.
+ * Strip `minimum`/`maximum` wherever they equal the safe-integer limits.
+ */
+const SAFE_INTEGER_MAX = 9007199254740991;
+
+function stripSafeIntegerBounds(node: unknown): void {
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      stripSafeIntegerBounds(item);
+    }
+    return;
+  }
+  if (node === null || typeof node !== "object") {
+    return;
+  }
+  const schema = node as Record<string, unknown>;
+  if (schema["minimum"] === -SAFE_INTEGER_MAX) {
+    delete schema["minimum"];
+  }
+  if (schema["maximum"] === SAFE_INTEGER_MAX) {
+    delete schema["maximum"];
+  }
+  for (const value of Object.values(schema)) {
+    stripSafeIntegerBounds(value);
+  }
+}
+
 function toOperation({ config }: Endpoint): ZodOpenApiOperationObject {
   const operation: ZodOpenApiOperationObject = {
     summary: config.summary,
@@ -81,5 +111,7 @@ export function getOpenApiDocument(): ReturnType<typeof createDocument> {
     },
   };
 
-  return createDocument(document);
+  const generated = createDocument(document);
+  stripSafeIntegerBounds(generated);
+  return generated;
 }

@@ -131,7 +131,11 @@ export function defineEndpoint<
       if (error instanceof z.ZodError) {
         return errorResponse(zodMessage(error), 400);
       }
-      throw error;
+      // Any other error is a bug (e.g. a database failure). Log it for the
+      // operator and return the `ApiError` shape rather than letting the
+      // framework surface its own unhandled-error body with a different shape.
+      console.error(`Unhandled error in ${config.method} ${config.path}:`, error);
+      return errorResponse("Internal server error", 500);
     }
   };
 

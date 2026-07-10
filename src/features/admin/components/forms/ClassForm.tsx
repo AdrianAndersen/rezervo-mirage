@@ -13,7 +13,6 @@ export interface ClassFormValues {
   bookingOpensHoursBefore: number;
   totalSlots: number;
   room: string;
-  isBookable: boolean;
   isCancelled: boolean;
   cancelText: string;
   instructorIds: string[];
@@ -32,7 +31,6 @@ function initialFromClass(cls: ClassDetail): ClassFormValues {
     bookingOpensHoursBefore: start.diff(dayjs(cls.bookingOpensAt), "hour"),
     totalSlots: cls.totalSlots,
     room: cls.room ?? "",
-    isBookable: cls.isBookable,
     isCancelled: cls.isCancelled,
     cancelText: cls.cancelText ?? "",
     instructorIds: cls.instructors.map((i) => String(i.id)),
@@ -69,7 +67,6 @@ export default function ClassForm({
           bookingOpensHoursBefore: 48,
           totalSlots: 20,
           room: "",
-          isBookable: true,
           isCancelled: false,
           cancelText: "",
           instructorIds: [],
@@ -85,7 +82,6 @@ export default function ClassForm({
         bookingOpensAt: start.subtract(value.bookingOpensHoursBefore, "hour").toDate(),
         totalSlots: value.totalSlots,
         room: value.room.trim() || null,
-        isBookable: value.isBookable,
         isCancelled: value.isCancelled,
         cancelText: value.cancelText.trim() || null,
         instructorIds: value.instructorIds.map(Number),
@@ -167,14 +163,9 @@ export default function ClassForm({
           )}
         </form.AppField>
 
-        <Group grow>
-          <form.AppField name={"isBookable"}>
-            {(field) => <field.SwitchField label={"Bookbar"} />}
-          </form.AppField>
-          <form.AppField name={"isCancelled"}>
-            {(field) => <field.SwitchField label={"Avlyst"} />}
-          </form.AppField>
-        </Group>
+        <form.AppField name={"isCancelled"}>
+          {(field) => <field.SwitchField label={"Avlyst"} />}
+        </form.AppField>
 
         <form.Subscribe selector={(s) => s.values.isCancelled}>
           {(isCancelled) =>

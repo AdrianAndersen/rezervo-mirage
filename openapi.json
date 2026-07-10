@@ -153,7 +153,11 @@
             "in": "query",
             "name": "from",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date",
+              "examples": [
+                "2026-07-10"
+              ]
             }
           },
           {
@@ -161,8 +165,10 @@
             "name": "days",
             "schema": {
               "type": "integer",
-              "minimum": -9007199254740991,
-              "maximum": 9007199254740991
+              "minimum": 1,
+              "examples": [
+                7
+              ]
             }
           },
           {
@@ -513,27 +519,10 @@
         "properties": {
           "accessToken": {
             "type": "string"
-          },
-          "tokenType": {
-            "type": "string",
-            "const": "Bearer"
-          },
-          "expiresIn": {
-            "type": "integer",
-            "minimum": -9007199254740991,
-            "maximum": 9007199254740991
-          },
-          "userId": {
-            "type": "integer",
-            "minimum": -9007199254740991,
-            "maximum": 9007199254740991
           }
         },
         "required": [
-          "accessToken",
-          "tokenType",
-          "expiresIn",
-          "userId"
+          "accessToken"
         ],
         "additionalProperties": false
       },
@@ -555,9 +544,6 @@
       "ScheduleDay": {
         "type": "object",
         "properties": {
-          "dayName": {
-            "type": "string"
-          },
           "date": {
             "type": "string",
             "format": "date",
@@ -573,7 +559,6 @@
           }
         },
         "required": [
-          "dayName",
           "date",
           "classes"
         ],
@@ -611,9 +596,6 @@
               "$ref": "#/components/schemas/Instructor"
             }
           },
-          "isBookable": {
-            "type": "boolean"
-          },
           "isCancelled": {
             "type": "boolean"
           },
@@ -628,19 +610,13 @@
             ]
           },
           "totalSlots": {
-            "type": "integer",
-            "minimum": -9007199254740991,
-            "maximum": 9007199254740991
+            "type": "integer"
           },
           "availableSlots": {
-            "type": "integer",
-            "minimum": -9007199254740991,
-            "maximum": 9007199254740991
+            "type": "integer"
           },
           "waitingListCount": {
-            "type": "integer",
-            "minimum": -9007199254740991,
-            "maximum": 9007199254740991
+            "type": "integer"
           },
           "bookingOpensAt": {
             "type": "string",
@@ -657,7 +633,6 @@
           "location",
           "activity",
           "instructors",
-          "isBookable",
           "isCancelled",
           "cancelText",
           "totalSlots",
@@ -764,9 +739,7 @@
           "positionInWaitList": {
             "anyOf": [
               {
-                "type": "integer",
-                "minimum": -9007199254740991,
-                "maximum": 9007199254740991
+                "type": "integer"
               },
               {
                 "type": "null"
@@ -807,9 +780,7 @@
           "positionInWaitList": {
             "anyOf": [
               {
-                "type": "integer",
-                "minimum": -9007199254740991,
-                "maximum": 9007199254740991
+                "type": "integer"
               },
               {
                 "type": "null"
