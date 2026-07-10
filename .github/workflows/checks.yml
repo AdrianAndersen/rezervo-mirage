@@ -6,6 +6,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+# prisma generate (run via postinstall) loads prisma.config.ts, which requires
+# DATABASE_URL to be set. These jobs never connect to a database, so a dummy
+# value is sufficient to let the config load.
+env:
+  DATABASE_URL: postgresql://user:pass@localhost:5432/db
+
 jobs:
   code_style:
     name: Code Style
