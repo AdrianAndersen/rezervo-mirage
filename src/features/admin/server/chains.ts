@@ -3,7 +3,12 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { adminAuthMiddleware } from "@/features/admin/auth/middleware";
 
-import { chainCreateSchema, chainSlugSchema, chainUpdateSchema, idSchema } from "@/features/admin/schemas";
+import {
+  chainCreateSchema,
+  chainSlugSchema,
+  chainUpdateSchema,
+  idSchema,
+} from "@/features/admin/schemas";
 import { runRepo } from "@/features/admin/server/errors";
 import { pruneUndefined } from "@/features/admin/server/prune";
 import * as repo from "@/features/admin/repository";
