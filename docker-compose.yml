@@ -1,0 +1,32 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://rezervo-mirage:rezervo-mirage@db:5432/rezervo-mirage
+      ADMIN_AUTH_DISABLED: ${ADMIN_AUTH_DISABLED:-1}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_SESSION_SECRET: ${ADMIN_SESSION_SECRET:-change-me-to-a-random-string-of-at-least-32-characters}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: rezervo-mirage
+      POSTGRES_PASSWORD: rezervo-mirage
+      POSTGRES_DB: rezervo-mirage
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rezervo-mirage -d rezervo-mirage"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db-data:
