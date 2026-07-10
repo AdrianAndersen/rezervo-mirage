@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Chain {
+  id Int @id @default(autoincrement())
+  identifier String @unique
+  name           String
+  branches       Branch[]
+  activities     Activity[]
+  users          User[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Branch {
+  id Int @id @default(autoincrement())
+
+  // Stable slug used as the rezervo-facing branch identifier, unique within its chain.
+  identifier String
+
+  name      String
+  chain     Chain      @relation(fields: [chainId], references: [id], onDelete: Cascade)
+  chainId   Int
+  locations Location[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([chainId, identifier])
+  @@index([chainId])
+}
+
+model Location {
+  id Int @id @default(autoincrement())
+
+  // Stable slug used as the rezervo-facing location identifier, unique within its branch.
+  identifier String
+
+  name      String
+  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  branchId  Int
+  classes   Class[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([branchId, identifier])
+  @@index([branchId])
+}
+
+model Class {
+  id             Int            @id @default(autoincrement())
+  startTime      DateTime
+  endTime        DateTime
+  bookingOpensAt DateTime
+  room           String?
+  isBookable     Boolean
+  isCancelled    Boolean
+  cancelText     String?
+  totalSlots     Int
+  location       Location       @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId     Int
+  activity       Activity       @relation(fields: [activityId], references: [id])
+  activityId     Int
+  instructors    User[]         @relation("ClassInstructors")
+  registrations  Registration[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([locationId, startTime])
+  @@index([activityId])
+}
+
+model Activity {
+  id                    Int      @id @default(autoincrement())
+  chain                 Chain    @relation(fields: [chainId], references: [id], onDelete: Cascade)
+  chainId               Int
+  name                  String
+  description           String?
+  additionalInformation String?
+  color                 String
+  image                 String?
+  classes               Class[]
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([chainId])
+}
+
+model User {
+  id      Int   @id @default(autoincrement())
+  chain   Chain @relation(fields: [chainId], references: [id], onDelete: Cascade)
+  chainId Int
+  name String
+  username String
+  password String
+  isEmployee         Boolean        @default(false)
+  instructingClasses Class[]        @relation("ClassInstructors")
+  registrations      Registration[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  @@unique([chainId, username])
+  @@index([chainId])
+}
+
+model Registration {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  class  Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId Int
+
+  // Set when the member checks in; drives the CONFIRMED session state.
+  // BOOKED vs WAITLIST (and waiting-list position) is derived from createdAt
+  // ordering against Class.totalSlots, so no explicit status column is needed.
+  checkedInAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, classId])
+  @@index([classId])
+}

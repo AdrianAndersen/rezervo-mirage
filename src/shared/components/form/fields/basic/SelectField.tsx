@@ -1,6 +1,7 @@
 import { Select, type SelectProps } from "@mantine/core";
 
 import { useFieldContext } from "@/shared/hooks/form";
+import { fieldErrorText } from "@/shared/components/form/fieldError";
 
 export default function SelectField(props: SelectProps) {
   const field = useFieldContext<string | null>();
@@ -11,7 +12,7 @@ export default function SelectField(props: SelectProps) {
       value={field.state.value}
       onChange={field.handleChange}
       onBlur={field.handleBlur}
-      error={field.state.meta.errors.join(", ")}
+      error={fieldErrorText(field.state.meta.errors)}
     />
   );
 }

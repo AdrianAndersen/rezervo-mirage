@@ -9,9 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChainsChainIdRouteImport } from './routes/chains/$chainId'
+import { Route as ApiOpenapiDotjsonRouteImport } from './routes/api/openapi[.]json'
+import { Route as ApiDocsRouteImport } from './routes/api/docs'
+import { Route as ChainsChainIdIndexRouteImport } from './routes/chains/$chainId/index'
+import { Route as ApiChainsIndexRouteImport } from './routes/api/chains/index'
+import { Route as ChainsChainIdLokasjonerRouteImport } from './routes/chains/$chainId/lokasjoner'
+import { Route as ChainsChainIdFilialerRouteImport } from './routes/chains/$chainId/filialer'
+import { Route as ChainsChainIdBrukereRouteImport } from './routes/chains/$chainId/brukere'
+import { Route as ChainsChainIdAktiviteterRouteImport } from './routes/chains/$chainId/aktiviteter'
+import { Route as ApiChainsChainIdentifierIndexRouteImport } from './routes/api/chains/$chainIdentifier/index'
+import { Route as ApiChainsChainIdentifierSessionsRouteImport } from './routes/api/chains/$chainIdentifier/sessions'
+import { Route as ApiChainsChainIdentifierScheduleRouteImport } from './routes/api/chains/$chainIdentifier/schedule'
+import { Route as ApiChainsChainIdentifierBookingsIndexRouteImport } from './routes/api/chains/$chainIdentifier/bookings/index'
+import { Route as ApiChainsChainIdentifierClassesClassIdRouteImport } from './routes/api/chains/$chainIdentifier/classes/$classId'
+import { Route as ApiChainsChainIdentifierBookingsClassIdRouteImport } from './routes/api/chains/$chainIdentifier/bookings/$classId'
+import { Route as ApiChainsChainIdentifierAuthLoginRouteImport } from './routes/api/chains/$chainIdentifier/auth/login'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HealthRoute = HealthRouteImport.update({
   id: '/health',
   path: '/health',
@@ -22,35 +44,249 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChainsChainIdRoute = ChainsChainIdRouteImport.update({
+  id: '/chains/$chainId',
+  path: '/chains/$chainId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOpenapiDotjsonRoute = ApiOpenapiDotjsonRouteImport.update({
+  id: '/api/openapi.json',
+  path: '/api/openapi.json',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDocsRoute = ApiDocsRouteImport.update({
+  id: '/api/docs',
+  path: '/api/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChainsChainIdIndexRoute = ChainsChainIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ChainsChainIdRoute,
+} as any)
+const ApiChainsIndexRoute = ApiChainsIndexRouteImport.update({
+  id: '/api/chains/',
+  path: '/api/chains/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChainsChainIdLokasjonerRoute = ChainsChainIdLokasjonerRouteImport.update({
+  id: '/lokasjoner',
+  path: '/lokasjoner',
+  getParentRoute: () => ChainsChainIdRoute,
+} as any)
+const ChainsChainIdFilialerRoute = ChainsChainIdFilialerRouteImport.update({
+  id: '/filialer',
+  path: '/filialer',
+  getParentRoute: () => ChainsChainIdRoute,
+} as any)
+const ChainsChainIdBrukereRoute = ChainsChainIdBrukereRouteImport.update({
+  id: '/brukere',
+  path: '/brukere',
+  getParentRoute: () => ChainsChainIdRoute,
+} as any)
+const ChainsChainIdAktiviteterRoute =
+  ChainsChainIdAktiviteterRouteImport.update({
+    id: '/aktiviteter',
+    path: '/aktiviteter',
+    getParentRoute: () => ChainsChainIdRoute,
+  } as any)
+const ApiChainsChainIdentifierIndexRoute =
+  ApiChainsChainIdentifierIndexRouteImport.update({
+    id: '/api/chains/$chainIdentifier/',
+    path: '/api/chains/$chainIdentifier/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChainsChainIdentifierSessionsRoute =
+  ApiChainsChainIdentifierSessionsRouteImport.update({
+    id: '/api/chains/$chainIdentifier/sessions',
+    path: '/api/chains/$chainIdentifier/sessions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChainsChainIdentifierScheduleRoute =
+  ApiChainsChainIdentifierScheduleRouteImport.update({
+    id: '/api/chains/$chainIdentifier/schedule',
+    path: '/api/chains/$chainIdentifier/schedule',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChainsChainIdentifierBookingsIndexRoute =
+  ApiChainsChainIdentifierBookingsIndexRouteImport.update({
+    id: '/api/chains/$chainIdentifier/bookings/',
+    path: '/api/chains/$chainIdentifier/bookings/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChainsChainIdentifierClassesClassIdRoute =
+  ApiChainsChainIdentifierClassesClassIdRouteImport.update({
+    id: '/api/chains/$chainIdentifier/classes/$classId',
+    path: '/api/chains/$chainIdentifier/classes/$classId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChainsChainIdentifierBookingsClassIdRoute =
+  ApiChainsChainIdentifierBookingsClassIdRouteImport.update({
+    id: '/api/chains/$chainIdentifier/bookings/$classId',
+    path: '/api/chains/$chainIdentifier/bookings/$classId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChainsChainIdentifierAuthLoginRoute =
+  ApiChainsChainIdentifierAuthLoginRouteImport.update({
+    id: '/api/chains/$chainIdentifier/auth/login',
+    path: '/api/chains/$chainIdentifier/auth/login',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/health': typeof HealthRoute
+  '/login': typeof LoginRoute
+  '/api/docs': typeof ApiDocsRoute
+  '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
+  '/chains/$chainId': typeof ChainsChainIdRouteWithChildren
+  '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
+  '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
+  '/chains/$chainId/filialer': typeof ChainsChainIdFilialerRoute
+  '/chains/$chainId/lokasjoner': typeof ChainsChainIdLokasjonerRoute
+  '/api/chains/': typeof ApiChainsIndexRoute
+  '/chains/$chainId/': typeof ChainsChainIdIndexRoute
+  '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
+  '/api/chains/$chainIdentifier/sessions': typeof ApiChainsChainIdentifierSessionsRoute
+  '/api/chains/$chainIdentifier/': typeof ApiChainsChainIdentifierIndexRoute
+  '/api/chains/$chainIdentifier/auth/login': typeof ApiChainsChainIdentifierAuthLoginRoute
+  '/api/chains/$chainIdentifier/bookings/$classId': typeof ApiChainsChainIdentifierBookingsClassIdRoute
+  '/api/chains/$chainIdentifier/classes/$classId': typeof ApiChainsChainIdentifierClassesClassIdRoute
+  '/api/chains/$chainIdentifier/bookings/': typeof ApiChainsChainIdentifierBookingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/health': typeof HealthRoute
+  '/login': typeof LoginRoute
+  '/api/docs': typeof ApiDocsRoute
+  '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
+  '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
+  '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
+  '/chains/$chainId/filialer': typeof ChainsChainIdFilialerRoute
+  '/chains/$chainId/lokasjoner': typeof ChainsChainIdLokasjonerRoute
+  '/api/chains': typeof ApiChainsIndexRoute
+  '/chains/$chainId': typeof ChainsChainIdIndexRoute
+  '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
+  '/api/chains/$chainIdentifier/sessions': typeof ApiChainsChainIdentifierSessionsRoute
+  '/api/chains/$chainIdentifier': typeof ApiChainsChainIdentifierIndexRoute
+  '/api/chains/$chainIdentifier/auth/login': typeof ApiChainsChainIdentifierAuthLoginRoute
+  '/api/chains/$chainIdentifier/bookings/$classId': typeof ApiChainsChainIdentifierBookingsClassIdRoute
+  '/api/chains/$chainIdentifier/classes/$classId': typeof ApiChainsChainIdentifierClassesClassIdRoute
+  '/api/chains/$chainIdentifier/bookings': typeof ApiChainsChainIdentifierBookingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/health': typeof HealthRoute
+  '/login': typeof LoginRoute
+  '/api/docs': typeof ApiDocsRoute
+  '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
+  '/chains/$chainId': typeof ChainsChainIdRouteWithChildren
+  '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
+  '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
+  '/chains/$chainId/filialer': typeof ChainsChainIdFilialerRoute
+  '/chains/$chainId/lokasjoner': typeof ChainsChainIdLokasjonerRoute
+  '/api/chains/': typeof ApiChainsIndexRoute
+  '/chains/$chainId/': typeof ChainsChainIdIndexRoute
+  '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
+  '/api/chains/$chainIdentifier/sessions': typeof ApiChainsChainIdentifierSessionsRoute
+  '/api/chains/$chainIdentifier/': typeof ApiChainsChainIdentifierIndexRoute
+  '/api/chains/$chainIdentifier/auth/login': typeof ApiChainsChainIdentifierAuthLoginRoute
+  '/api/chains/$chainIdentifier/bookings/$classId': typeof ApiChainsChainIdentifierBookingsClassIdRoute
+  '/api/chains/$chainIdentifier/classes/$classId': typeof ApiChainsChainIdentifierClassesClassIdRoute
+  '/api/chains/$chainIdentifier/bookings/': typeof ApiChainsChainIdentifierBookingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/health'
+  fullPaths:
+    | '/'
+    | '/health'
+    | '/login'
+    | '/api/docs'
+    | '/api/openapi.json'
+    | '/chains/$chainId'
+    | '/chains/$chainId/aktiviteter'
+    | '/chains/$chainId/brukere'
+    | '/chains/$chainId/filialer'
+    | '/chains/$chainId/lokasjoner'
+    | '/api/chains/'
+    | '/chains/$chainId/'
+    | '/api/chains/$chainIdentifier/schedule'
+    | '/api/chains/$chainIdentifier/sessions'
+    | '/api/chains/$chainIdentifier/'
+    | '/api/chains/$chainIdentifier/auth/login'
+    | '/api/chains/$chainIdentifier/bookings/$classId'
+    | '/api/chains/$chainIdentifier/classes/$classId'
+    | '/api/chains/$chainIdentifier/bookings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/health'
-  id: '__root__' | '/' | '/health'
+  to:
+    | '/'
+    | '/health'
+    | '/login'
+    | '/api/docs'
+    | '/api/openapi.json'
+    | '/chains/$chainId/aktiviteter'
+    | '/chains/$chainId/brukere'
+    | '/chains/$chainId/filialer'
+    | '/chains/$chainId/lokasjoner'
+    | '/api/chains'
+    | '/chains/$chainId'
+    | '/api/chains/$chainIdentifier/schedule'
+    | '/api/chains/$chainIdentifier/sessions'
+    | '/api/chains/$chainIdentifier'
+    | '/api/chains/$chainIdentifier/auth/login'
+    | '/api/chains/$chainIdentifier/bookings/$classId'
+    | '/api/chains/$chainIdentifier/classes/$classId'
+    | '/api/chains/$chainIdentifier/bookings'
+  id:
+    | '__root__'
+    | '/'
+    | '/health'
+    | '/login'
+    | '/api/docs'
+    | '/api/openapi.json'
+    | '/chains/$chainId'
+    | '/chains/$chainId/aktiviteter'
+    | '/chains/$chainId/brukere'
+    | '/chains/$chainId/filialer'
+    | '/chains/$chainId/lokasjoner'
+    | '/api/chains/'
+    | '/chains/$chainId/'
+    | '/api/chains/$chainIdentifier/schedule'
+    | '/api/chains/$chainIdentifier/sessions'
+    | '/api/chains/$chainIdentifier/'
+    | '/api/chains/$chainIdentifier/auth/login'
+    | '/api/chains/$chainIdentifier/bookings/$classId'
+    | '/api/chains/$chainIdentifier/classes/$classId'
+    | '/api/chains/$chainIdentifier/bookings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HealthRoute: typeof HealthRoute
+  LoginRoute: typeof LoginRoute
+  ApiDocsRoute: typeof ApiDocsRoute
+  ApiOpenapiDotjsonRoute: typeof ApiOpenapiDotjsonRoute
+  ChainsChainIdRoute: typeof ChainsChainIdRouteWithChildren
+  ApiChainsIndexRoute: typeof ApiChainsIndexRoute
+  ApiChainsChainIdentifierScheduleRoute: typeof ApiChainsChainIdentifierScheduleRoute
+  ApiChainsChainIdentifierSessionsRoute: typeof ApiChainsChainIdentifierSessionsRoute
+  ApiChainsChainIdentifierIndexRoute: typeof ApiChainsChainIdentifierIndexRoute
+  ApiChainsChainIdentifierAuthLoginRoute: typeof ApiChainsChainIdentifierAuthLoginRoute
+  ApiChainsChainIdentifierBookingsClassIdRoute: typeof ApiChainsChainIdentifierBookingsClassIdRoute
+  ApiChainsChainIdentifierClassesClassIdRoute: typeof ApiChainsChainIdentifierClassesClassIdRoute
+  ApiChainsChainIdentifierBookingsIndexRoute: typeof ApiChainsChainIdentifierBookingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/health': {
       id: '/health'
       path: '/health'
@@ -65,12 +301,160 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chains/$chainId': {
+      id: '/chains/$chainId'
+      path: '/chains/$chainId'
+      fullPath: '/chains/$chainId'
+      preLoaderRoute: typeof ChainsChainIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/openapi.json': {
+      id: '/api/openapi.json'
+      path: '/api/openapi.json'
+      fullPath: '/api/openapi.json'
+      preLoaderRoute: typeof ApiOpenapiDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/docs': {
+      id: '/api/docs'
+      path: '/api/docs'
+      fullPath: '/api/docs'
+      preLoaderRoute: typeof ApiDocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chains/$chainId/': {
+      id: '/chains/$chainId/'
+      path: '/'
+      fullPath: '/chains/$chainId/'
+      preLoaderRoute: typeof ChainsChainIdIndexRouteImport
+      parentRoute: typeof ChainsChainIdRoute
+    }
+    '/api/chains/': {
+      id: '/api/chains/'
+      path: '/api/chains'
+      fullPath: '/api/chains/'
+      preLoaderRoute: typeof ApiChainsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chains/$chainId/lokasjoner': {
+      id: '/chains/$chainId/lokasjoner'
+      path: '/lokasjoner'
+      fullPath: '/chains/$chainId/lokasjoner'
+      preLoaderRoute: typeof ChainsChainIdLokasjonerRouteImport
+      parentRoute: typeof ChainsChainIdRoute
+    }
+    '/chains/$chainId/filialer': {
+      id: '/chains/$chainId/filialer'
+      path: '/filialer'
+      fullPath: '/chains/$chainId/filialer'
+      preLoaderRoute: typeof ChainsChainIdFilialerRouteImport
+      parentRoute: typeof ChainsChainIdRoute
+    }
+    '/chains/$chainId/brukere': {
+      id: '/chains/$chainId/brukere'
+      path: '/brukere'
+      fullPath: '/chains/$chainId/brukere'
+      preLoaderRoute: typeof ChainsChainIdBrukereRouteImport
+      parentRoute: typeof ChainsChainIdRoute
+    }
+    '/chains/$chainId/aktiviteter': {
+      id: '/chains/$chainId/aktiviteter'
+      path: '/aktiviteter'
+      fullPath: '/chains/$chainId/aktiviteter'
+      preLoaderRoute: typeof ChainsChainIdAktiviteterRouteImport
+      parentRoute: typeof ChainsChainIdRoute
+    }
+    '/api/chains/$chainIdentifier/': {
+      id: '/api/chains/$chainIdentifier/'
+      path: '/api/chains/$chainIdentifier'
+      fullPath: '/api/chains/$chainIdentifier/'
+      preLoaderRoute: typeof ApiChainsChainIdentifierIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chains/$chainIdentifier/sessions': {
+      id: '/api/chains/$chainIdentifier/sessions'
+      path: '/api/chains/$chainIdentifier/sessions'
+      fullPath: '/api/chains/$chainIdentifier/sessions'
+      preLoaderRoute: typeof ApiChainsChainIdentifierSessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chains/$chainIdentifier/schedule': {
+      id: '/api/chains/$chainIdentifier/schedule'
+      path: '/api/chains/$chainIdentifier/schedule'
+      fullPath: '/api/chains/$chainIdentifier/schedule'
+      preLoaderRoute: typeof ApiChainsChainIdentifierScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chains/$chainIdentifier/bookings/': {
+      id: '/api/chains/$chainIdentifier/bookings/'
+      path: '/api/chains/$chainIdentifier/bookings'
+      fullPath: '/api/chains/$chainIdentifier/bookings/'
+      preLoaderRoute: typeof ApiChainsChainIdentifierBookingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chains/$chainIdentifier/classes/$classId': {
+      id: '/api/chains/$chainIdentifier/classes/$classId'
+      path: '/api/chains/$chainIdentifier/classes/$classId'
+      fullPath: '/api/chains/$chainIdentifier/classes/$classId'
+      preLoaderRoute: typeof ApiChainsChainIdentifierClassesClassIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chains/$chainIdentifier/bookings/$classId': {
+      id: '/api/chains/$chainIdentifier/bookings/$classId'
+      path: '/api/chains/$chainIdentifier/bookings/$classId'
+      fullPath: '/api/chains/$chainIdentifier/bookings/$classId'
+      preLoaderRoute: typeof ApiChainsChainIdentifierBookingsClassIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chains/$chainIdentifier/auth/login': {
+      id: '/api/chains/$chainIdentifier/auth/login'
+      path: '/api/chains/$chainIdentifier/auth/login'
+      fullPath: '/api/chains/$chainIdentifier/auth/login'
+      preLoaderRoute: typeof ApiChainsChainIdentifierAuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
+
+interface ChainsChainIdRouteChildren {
+  ChainsChainIdAktiviteterRoute: typeof ChainsChainIdAktiviteterRoute
+  ChainsChainIdBrukereRoute: typeof ChainsChainIdBrukereRoute
+  ChainsChainIdFilialerRoute: typeof ChainsChainIdFilialerRoute
+  ChainsChainIdLokasjonerRoute: typeof ChainsChainIdLokasjonerRoute
+  ChainsChainIdIndexRoute: typeof ChainsChainIdIndexRoute
+}
+
+const ChainsChainIdRouteChildren: ChainsChainIdRouteChildren = {
+  ChainsChainIdAktiviteterRoute: ChainsChainIdAktiviteterRoute,
+  ChainsChainIdBrukereRoute: ChainsChainIdBrukereRoute,
+  ChainsChainIdFilialerRoute: ChainsChainIdFilialerRoute,
+  ChainsChainIdLokasjonerRoute: ChainsChainIdLokasjonerRoute,
+  ChainsChainIdIndexRoute: ChainsChainIdIndexRoute,
+}
+
+const ChainsChainIdRouteWithChildren = ChainsChainIdRoute._addFileChildren(
+  ChainsChainIdRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HealthRoute: HealthRoute,
+  LoginRoute: LoginRoute,
+  ApiDocsRoute: ApiDocsRoute,
+  ApiOpenapiDotjsonRoute: ApiOpenapiDotjsonRoute,
+  ChainsChainIdRoute: ChainsChainIdRouteWithChildren,
+  ApiChainsIndexRoute: ApiChainsIndexRoute,
+  ApiChainsChainIdentifierScheduleRoute: ApiChainsChainIdentifierScheduleRoute,
+  ApiChainsChainIdentifierSessionsRoute: ApiChainsChainIdentifierSessionsRoute,
+  ApiChainsChainIdentifierIndexRoute: ApiChainsChainIdentifierIndexRoute,
+  ApiChainsChainIdentifierAuthLoginRoute:
+    ApiChainsChainIdentifierAuthLoginRoute,
+  ApiChainsChainIdentifierBookingsClassIdRoute:
+    ApiChainsChainIdentifierBookingsClassIdRoute,
+  ApiChainsChainIdentifierClassesClassIdRoute:
+    ApiChainsChainIdentifierClassesClassIdRoute,
+  ApiChainsChainIdentifierBookingsIndexRoute:
+    ApiChainsChainIdentifierBookingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

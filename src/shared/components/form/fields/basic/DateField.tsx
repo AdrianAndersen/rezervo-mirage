@@ -2,6 +2,7 @@ import { type CalendarLevel, DateInput, type DateInputProps } from "@mantine/dat
 import { useState } from "react";
 
 import { useFieldContext } from "@/shared/hooks/form";
+import { fieldErrorText } from "@/shared/components/form/fieldError";
 
 export default function DateField(props: DateInputProps) {
   const field = useFieldContext<string | null>();
@@ -27,7 +28,7 @@ export default function DateField(props: DateInputProps) {
         field.handleChange(value);
       }}
       onBlur={field.handleBlur}
-      error={field.state.meta.errors.join(", ")}
+      error={fieldErrorText(field.state.meta.errors)}
     />
   );
 }

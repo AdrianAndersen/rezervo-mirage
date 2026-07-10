@@ -1,6 +1,7 @@
 import { PasswordInput, type PasswordInputProps } from "@mantine/core";
 
 import { useFieldContext } from "@/shared/hooks/form";
+import { fieldErrorText } from "@/shared/components/form/fieldError";
 
 export function newPasswordFieldValidator(value: string) {
   if (!value) return "Du må fylle inn et passord";
@@ -22,7 +23,7 @@ export default function NewPasswordField(props: PasswordInputProps) {
       value={field.state.value}
       onChange={(event) => field.handleChange(event.target.value)}
       onBlur={field.handleBlur}
-      error={field.state.meta.errors.join(", ")}
+      error={fieldErrorText(field.state.meta.errors)}
     />
   );
 }

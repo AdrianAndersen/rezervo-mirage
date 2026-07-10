@@ -20,7 +20,7 @@ coverage/
 
 # Env files
 .env
-.env.local
+.env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -40,3 +40,8 @@ Session.vim
 
 .claude/worktrees/
 .claude/memory/
+
+/generated/prisma
+
+# Playwright MCP artifacts
+.playwright-mcp/

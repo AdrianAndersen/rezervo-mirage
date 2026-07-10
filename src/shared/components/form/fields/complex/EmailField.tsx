@@ -2,6 +2,7 @@ import { TextInput, type TextInputProps } from "@mantine/core";
 import validator from "validator";
 
 import { useFieldContext } from "@/shared/hooks/form";
+import { fieldErrorText } from "@/shared/components/form/fieldError";
 
 export function emailFieldValidator(value: string, context: string, primaryEmail?: string) {
   if (!value) {
@@ -36,7 +37,7 @@ export default function EmailField(props: TextInputProps) {
       value={field.state.value}
       onChange={(event) => field.handleChange(event.target.value)}
       onBlur={field.handleBlur}
-      error={field.state.meta.errors.join(", ")}
+      error={fieldErrorText(field.state.meta.errors)}
     />
   );
 }

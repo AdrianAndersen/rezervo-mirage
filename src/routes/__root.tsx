@@ -3,6 +3,8 @@ import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
+
+import { theme } from "@/shared/theme";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
@@ -33,11 +35,11 @@ function RootLayout() {
   return (
     <html lang="no" {...mantineHtmlProps}>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme={"auto"} />
         <HeadContent />
       </head>
       <body>
-        <MantineProvider>
+        <MantineProvider theme={theme} defaultColorScheme={"auto"}>
           <Notifications />
           <DatesProvider settings={{ locale: "nb" }}>
             <ModalsProvider>

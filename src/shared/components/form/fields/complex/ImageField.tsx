@@ -3,6 +3,7 @@ import { Stack, TextInput, type TextInputProps } from "@mantine/core";
 import { useFieldContext } from "@/shared/hooks/form";
 import { Activity } from "react";
 import validator from "validator";
+import { fieldErrorText } from "@/shared/components/form/fieldError";
 
 export function imageFieldValidator(value: string) {
   if (
@@ -41,7 +42,7 @@ export default function ImageField(props: TextInputProps) {
         value={field.state.value}
         onChange={(event) => field.handleChange(event.target.value)}
         onBlur={field.handleBlur}
-        error={field.state.meta.errors.join(", ")}
+        error={fieldErrorText(field.state.meta.errors)}
       />
     </Stack>
   );
