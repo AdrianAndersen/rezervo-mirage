@@ -6,7 +6,6 @@
 
 - [Bun](https://bun.sh) (see `packageManager` in `package.json`)
 - A PostgreSQL database
-- Node ≥ 22.18 for the lint/format tooling (`fnm use v22.22.0`)
 
 ## Setup
 
@@ -57,6 +56,3 @@ password; the provider API has its own per-user auth and is not affected.
 The rezervo-facing API is served under `/api/chains/{chainIdentifier}/...`.
 
 - OpenAPI: `bun run openapi:gen` writes `openapi.json`; browsable at `/api/docs`.
-- **Categories:** rezervo derives a class's category and color from its
-  **name** (keyword matching), so mirage does not send a category. Name
-  activities so they contain the keywords rezervo matches on.

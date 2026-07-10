@@ -6,6 +6,7 @@
   "sideEffects": false,
   "scripts": {
     "preinstall": "npx only-allow bun",
+    "postinstall": "prisma generate",
     "dev": "vite dev",
     "typecheck": "tsc --noEmit",
     "format": "oxfmt",
