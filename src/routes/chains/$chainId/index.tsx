@@ -87,7 +87,7 @@ function TimerPage() {
 
       {!canCreate && (
         <Alert color={"gray"} mb={"md"} variant={"light"}>
-          Opprett minst én lokasjon og én aktivitet før du kan lage timer.
+          Opprett minst ett senter og én aktivitet før du kan lage timer.
         </Alert>
       )}
 

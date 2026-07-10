@@ -94,7 +94,7 @@ export default function ActivityForm({
           )}
         </form.AppField>
         <form.AppField name={"image"}>
-          {(field) => <field.TextField label={"Bilde-URL"} placeholder={"https://…"} />}
+          {(field) => <field.TextField label={"Bildelenke"} placeholder={"https://…"} />}
         </form.AppField>
         <Button type={"submit"} loading={submitting} mt={"xs"}>
           Lagre

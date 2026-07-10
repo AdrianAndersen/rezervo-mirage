@@ -17,7 +17,7 @@ import {
 } from "@/features/admin/server";
 import { showErrorNotification, showSuccessNotification } from "@/shared/utils/notifications";
 
-export const Route = createFileRoute("/chains/$chainId/filialer")({
+export const Route = createFileRoute("/chains/$chainId/regioner")({
   component: BranchesPage,
 });
 
@@ -25,7 +25,7 @@ const columns: Column<Branch>[] = [
   { header: "Navn", render: (b) => b.name },
   { header: "Identifikator", render: (b) => <SlugCell>{b.identifier}</SlugCell> },
   {
-    header: "Lokasjoner",
+    header: "Sentre",
     render: (b) => (
       <Badge variant={"light"} color={"gray"}>
         {b._count?.locations ?? 0}
@@ -59,7 +59,7 @@ function BranchesPage() {
     mutationFn: (id: number) => deleteBranchFn({ data: { id } }),
     onSuccess: async () => {
       await invalidate();
-      showSuccessNotification("Filial slettet");
+      showSuccessNotification("Region slettet");
     },
     onError: (error: Error) => showErrorNotification(error.message),
   });
@@ -67,21 +67,21 @@ function BranchesPage() {
   return (
     <Container size={"md"} px={0}>
       <PageHeader
-        title={"Filialer"}
-        subtitle={"Grupper lokasjoner under en filial."}
-        actionLabel={"Ny filial"}
+        title={"Regioner"}
+        subtitle={"Grupper sentre under en region."}
+        actionLabel={"Ny region"}
         onAction={editor.openCreate}
       />
       <CrudTable
         columns={columns}
         rows={data}
         isLoading={isLoading}
-        emptyText={"Ingen filialer ennå. Opprett den første."}
+        emptyText={"Ingen regioner ennå. Opprett den første."}
         onEdit={editor.openEdit}
         onDelete={(b) =>
           confirmDelete({
-            title: "Slett filial",
-            message: `Slett «${b.name}» og alle lokasjoner under den?`,
+            title: "Slett region",
+            message: `Slett «${b.name}» og alle sentre under den?`,
             onConfirm: () => remove.mutate(b.id),
           })
         }
@@ -89,7 +89,7 @@ function BranchesPage() {
       <Modal
         opened={editor.opened}
         onClose={editor.close}
-        title={editor.item ? "Rediger filial" : "Ny filial"}
+        title={editor.item ? "Rediger region" : "Ny region"}
         centered
       >
         <BranchForm

@@ -47,7 +47,7 @@ export default function LocationForm({
         <form.AppField name={"branchId"}>
           {(field) => (
             <field.SelectField
-              label={"Filial"}
+              label={"Region"}
               required
               data={branches.map((b) => ({ value: String(b.id), label: b.name }))}
             />
@@ -55,14 +55,14 @@ export default function LocationForm({
         </form.AppField>
         <form.AppField name={"name"} validators={{ onBlur: locationCreateSchema.shape.name }}>
           {(field) => (
-            <field.TextField label={"Navn"} placeholder={"Sal A"} required data-autofocus />
+            <field.TextField label={"Navn"} placeholder={"Bislett"} required data-autofocus />
           )}
         </form.AppField>
         <form.AppField name={"identifier"}>
           {(field) => (
             <field.TextField
               label={"Identifikator"}
-              placeholder={"sal-a"}
+              placeholder={"bislett"}
               description={"Genereres fra navnet om tomt."}
             />
           )}

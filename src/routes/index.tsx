@@ -137,7 +137,7 @@ function ChainsLanding() {
                 onDelete={() =>
                   confirmDelete({
                     title: "Slett kjede",
-                    message: `Slett «${chain.name}» og alt innhold (filialer, timer, brukere)? Dette kan ikke angres.`,
+                    message: `Slett «${chain.name}» og alt innhold (regioner, sentre, timer, brukere)? Dette kan ikke angres.`,
                     onConfirm: () => deleteMutation.mutate(chain.id),
                   })
                 }

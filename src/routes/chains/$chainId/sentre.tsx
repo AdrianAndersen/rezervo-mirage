@@ -20,7 +20,7 @@ import {
 } from "@/features/admin/server";
 import { showErrorNotification, showSuccessNotification } from "@/shared/utils/notifications";
 
-export const Route = createFileRoute("/chains/$chainId/lokasjoner")({
+export const Route = createFileRoute("/chains/$chainId/sentre")({
   component: LocationsPage,
 });
 
@@ -28,7 +28,7 @@ const columns: Column<Location>[] = [
   { header: "Navn", render: (l) => l.name },
   { header: "Identifikator", render: (l) => <SlugCell>{l.identifier}</SlugCell> },
   {
-    header: "Filial",
+    header: "Region",
     render: (l) => (
       <Text size={"sm"} c={"dimmed"}>
         {l.branch?.name ?? "—"}
@@ -69,7 +69,7 @@ function LocationsPage() {
     mutationFn: (id: number) => deleteLocationFn({ data: { id } }),
     onSuccess: async () => {
       await invalidate();
-      showSuccessNotification("Lokasjon slettet");
+      showSuccessNotification("Senter slettet");
     },
     onError: (error: Error) => showErrorNotification(error.message),
   });
@@ -77,9 +77,9 @@ function LocationsPage() {
   return (
     <Container size={"md"} px={0}>
       <PageHeader
-        title={"Lokasjoner"}
+        title={"Sentre"}
         subtitle={"Stedene der timer holdes."}
-        actionLabel={"Ny lokasjon"}
+        actionLabel={"Nytt senter"}
         onAction={editor.openCreate}
       />
       <CrudTable
@@ -88,14 +88,14 @@ function LocationsPage() {
         isLoading={isLoading}
         emptyText={
           branches && branches.length === 0
-            ? "Opprett en filial først, så kan du legge til lokasjoner."
-            : "Ingen lokasjoner ennå."
+            ? "Opprett en region først, så kan du legge til sentre."
+            : "Ingen sentre ennå."
         }
         onEdit={editor.openEdit}
         onDelete={(l) =>
           confirmDelete({
-            title: "Slett lokasjon",
-            message: `Slett «${l.name}» og alle timer på den?`,
+            title: "Slett senter",
+            message: `Slett «${l.name}» og alle timer der?`,
             onConfirm: () => remove.mutate(l.id),
           })
         }
@@ -103,7 +103,7 @@ function LocationsPage() {
       <Modal
         opened={editor.opened}
         onClose={editor.close}
-        title={editor.item ? "Rediger lokasjon" : "Ny lokasjon"}
+        title={editor.item ? "Rediger senter" : "Nytt senter"}
         centered
       >
         <LocationForm

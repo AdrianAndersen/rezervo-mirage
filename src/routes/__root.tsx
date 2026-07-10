@@ -17,7 +17,7 @@ import type { QueryClient } from "@tanstack/react-query";
 
 const SITE_NAME = "rezervo-mirage";
 const SITE_DESCRIPTION =
-  "Fiktiv treningsleverandør og admin-studio for rezervo – testdata for kjeder, filialer, timer og medlemmer.";
+  "Fiktiv treningsleverandør og admin-studio for rezervo – testdata for kjeder, regioner, sentre, timer og medlemmer.";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({

@@ -37,14 +37,14 @@ export default function BranchForm({
       <Stack>
         <form.AppField name={"name"} validators={{ onBlur: branchCreateSchema.shape.name }}>
           {(field) => (
-            <field.TextField label={"Navn"} placeholder={"Sentrum"} required data-autofocus />
+            <field.TextField label={"Navn"} placeholder={"Oslo"} required data-autofocus />
           )}
         </form.AppField>
         <form.AppField name={"identifier"}>
           {(field) => (
             <field.TextField
               label={"Identifikator"}
-              placeholder={"sentrum"}
+              placeholder={"oslo"}
               description={"Genereres fra navnet om tomt."}
             />
           )}

@@ -114,7 +114,7 @@ export default function ClassForm({
         <form.AppField name={"locationId"}>
           {(field) => (
             <field.SelectField
-              label={"Lokasjon"}
+              label={"Senter"}
               required
               searchable
               data={locations.map((l) => ({

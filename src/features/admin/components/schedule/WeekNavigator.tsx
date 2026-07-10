@@ -53,7 +53,7 @@ export default function WeekNavigator({
           data={locations.map((l) => ({ value: String(l.id), label: l.name }))}
           value={selectedLocationIds}
           onChange={onChangeLocations}
-          placeholder={selectedLocationIds.length === 0 ? "Alle lokasjoner" : ""}
+          placeholder={selectedLocationIds.length === 0 ? "Alle sentre" : ""}
           clearable
           searchable
           w={220}

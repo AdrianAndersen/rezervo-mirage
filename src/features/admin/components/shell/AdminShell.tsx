@@ -1,13 +1,7 @@
 import { AppShell, Box, Burger, Group, NavLink, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, useRouterState } from "@tanstack/react-router";
-import {
-  IconBarbell,
-  IconBuildingStore,
-  IconCalendarWeek,
-  IconMapPin,
-  IconUsers,
-} from "@tabler/icons-react";
+import { IconBarbell, IconCalendarWeek, IconMap, IconMapPin, IconUsers } from "@tabler/icons-react";
 import type { ReactNode } from "react";
 
 import ChainSwitcher from "./ChainSwitcher";
@@ -16,8 +10,8 @@ import LogoutButton from "./LogoutButton";
 
 const NAV_ITEMS = [
   { label: "Timer", to: "/chains/$chainId", icon: IconCalendarWeek, exact: true },
-  { label: "Filialer", to: "/chains/$chainId/filialer", icon: IconBuildingStore },
-  { label: "Lokasjoner", to: "/chains/$chainId/lokasjoner", icon: IconMapPin },
+  { label: "Regioner", to: "/chains/$chainId/regioner", icon: IconMap },
+  { label: "Sentre", to: "/chains/$chainId/sentre", icon: IconMapPin },
   { label: "Aktiviteter", to: "/chains/$chainId/aktiviteter", icon: IconBarbell },
   { label: "Brukere", to: "/chains/$chainId/brukere", icon: IconUsers },
 ] as const;

@@ -17,8 +17,8 @@ import { Route as ApiOpenapiDotjsonRouteImport } from './routes/api/openapi[.]js
 import { Route as ApiDocsRouteImport } from './routes/api/docs'
 import { Route as ChainsChainIdIndexRouteImport } from './routes/chains/$chainId/index'
 import { Route as ApiChainsIndexRouteImport } from './routes/api/chains/index'
-import { Route as ChainsChainIdLokasjonerRouteImport } from './routes/chains/$chainId/lokasjoner'
-import { Route as ChainsChainIdFilialerRouteImport } from './routes/chains/$chainId/filialer'
+import { Route as ChainsChainIdSentreRouteImport } from './routes/chains/$chainId/sentre'
+import { Route as ChainsChainIdRegionerRouteImport } from './routes/chains/$chainId/regioner'
 import { Route as ChainsChainIdBrukereRouteImport } from './routes/chains/$chainId/brukere'
 import { Route as ChainsChainIdAktiviteterRouteImport } from './routes/chains/$chainId/aktiviteter'
 import { Route as ApiChainsChainIdentifierIndexRouteImport } from './routes/api/chains/$chainIdentifier/index'
@@ -69,14 +69,14 @@ const ApiChainsIndexRoute = ApiChainsIndexRouteImport.update({
   path: '/api/chains/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChainsChainIdLokasjonerRoute = ChainsChainIdLokasjonerRouteImport.update({
-  id: '/lokasjoner',
-  path: '/lokasjoner',
+const ChainsChainIdSentreRoute = ChainsChainIdSentreRouteImport.update({
+  id: '/sentre',
+  path: '/sentre',
   getParentRoute: () => ChainsChainIdRoute,
 } as any)
-const ChainsChainIdFilialerRoute = ChainsChainIdFilialerRouteImport.update({
-  id: '/filialer',
-  path: '/filialer',
+const ChainsChainIdRegionerRoute = ChainsChainIdRegionerRouteImport.update({
+  id: '/regioner',
+  path: '/regioner',
   getParentRoute: () => ChainsChainIdRoute,
 } as any)
 const ChainsChainIdBrukereRoute = ChainsChainIdBrukereRouteImport.update({
@@ -142,8 +142,8 @@ export interface FileRoutesByFullPath {
   '/chains/$chainId': typeof ChainsChainIdRouteWithChildren
   '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
   '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
-  '/chains/$chainId/filialer': typeof ChainsChainIdFilialerRoute
-  '/chains/$chainId/lokasjoner': typeof ChainsChainIdLokasjonerRoute
+  '/chains/$chainId/regioner': typeof ChainsChainIdRegionerRoute
+  '/chains/$chainId/sentre': typeof ChainsChainIdSentreRoute
   '/api/chains/': typeof ApiChainsIndexRoute
   '/chains/$chainId/': typeof ChainsChainIdIndexRoute
   '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
@@ -162,8 +162,8 @@ export interface FileRoutesByTo {
   '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
   '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
   '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
-  '/chains/$chainId/filialer': typeof ChainsChainIdFilialerRoute
-  '/chains/$chainId/lokasjoner': typeof ChainsChainIdLokasjonerRoute
+  '/chains/$chainId/regioner': typeof ChainsChainIdRegionerRoute
+  '/chains/$chainId/sentre': typeof ChainsChainIdSentreRoute
   '/api/chains': typeof ApiChainsIndexRoute
   '/chains/$chainId': typeof ChainsChainIdIndexRoute
   '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
@@ -184,8 +184,8 @@ export interface FileRoutesById {
   '/chains/$chainId': typeof ChainsChainIdRouteWithChildren
   '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
   '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
-  '/chains/$chainId/filialer': typeof ChainsChainIdFilialerRoute
-  '/chains/$chainId/lokasjoner': typeof ChainsChainIdLokasjonerRoute
+  '/chains/$chainId/regioner': typeof ChainsChainIdRegionerRoute
+  '/chains/$chainId/sentre': typeof ChainsChainIdSentreRoute
   '/api/chains/': typeof ApiChainsIndexRoute
   '/chains/$chainId/': typeof ChainsChainIdIndexRoute
   '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
@@ -207,8 +207,8 @@ export interface FileRouteTypes {
     | '/chains/$chainId'
     | '/chains/$chainId/aktiviteter'
     | '/chains/$chainId/brukere'
-    | '/chains/$chainId/filialer'
-    | '/chains/$chainId/lokasjoner'
+    | '/chains/$chainId/regioner'
+    | '/chains/$chainId/sentre'
     | '/api/chains/'
     | '/chains/$chainId/'
     | '/api/chains/$chainIdentifier/schedule'
@@ -227,8 +227,8 @@ export interface FileRouteTypes {
     | '/api/openapi.json'
     | '/chains/$chainId/aktiviteter'
     | '/chains/$chainId/brukere'
-    | '/chains/$chainId/filialer'
-    | '/chains/$chainId/lokasjoner'
+    | '/chains/$chainId/regioner'
+    | '/chains/$chainId/sentre'
     | '/api/chains'
     | '/chains/$chainId'
     | '/api/chains/$chainIdentifier/schedule'
@@ -248,8 +248,8 @@ export interface FileRouteTypes {
     | '/chains/$chainId'
     | '/chains/$chainId/aktiviteter'
     | '/chains/$chainId/brukere'
-    | '/chains/$chainId/filialer'
-    | '/chains/$chainId/lokasjoner'
+    | '/chains/$chainId/regioner'
+    | '/chains/$chainId/sentre'
     | '/api/chains/'
     | '/chains/$chainId/'
     | '/api/chains/$chainIdentifier/schedule'
@@ -336,18 +336,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChainsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/chains/$chainId/lokasjoner': {
-      id: '/chains/$chainId/lokasjoner'
-      path: '/lokasjoner'
-      fullPath: '/chains/$chainId/lokasjoner'
-      preLoaderRoute: typeof ChainsChainIdLokasjonerRouteImport
+    '/chains/$chainId/sentre': {
+      id: '/chains/$chainId/sentre'
+      path: '/sentre'
+      fullPath: '/chains/$chainId/sentre'
+      preLoaderRoute: typeof ChainsChainIdSentreRouteImport
       parentRoute: typeof ChainsChainIdRoute
     }
-    '/chains/$chainId/filialer': {
-      id: '/chains/$chainId/filialer'
-      path: '/filialer'
-      fullPath: '/chains/$chainId/filialer'
-      preLoaderRoute: typeof ChainsChainIdFilialerRouteImport
+    '/chains/$chainId/regioner': {
+      id: '/chains/$chainId/regioner'
+      path: '/regioner'
+      fullPath: '/chains/$chainId/regioner'
+      preLoaderRoute: typeof ChainsChainIdRegionerRouteImport
       parentRoute: typeof ChainsChainIdRoute
     }
     '/chains/$chainId/brukere': {
@@ -419,16 +419,16 @@ declare module '@tanstack/react-router' {
 interface ChainsChainIdRouteChildren {
   ChainsChainIdAktiviteterRoute: typeof ChainsChainIdAktiviteterRoute
   ChainsChainIdBrukereRoute: typeof ChainsChainIdBrukereRoute
-  ChainsChainIdFilialerRoute: typeof ChainsChainIdFilialerRoute
-  ChainsChainIdLokasjonerRoute: typeof ChainsChainIdLokasjonerRoute
+  ChainsChainIdRegionerRoute: typeof ChainsChainIdRegionerRoute
+  ChainsChainIdSentreRoute: typeof ChainsChainIdSentreRoute
   ChainsChainIdIndexRoute: typeof ChainsChainIdIndexRoute
 }
 
 const ChainsChainIdRouteChildren: ChainsChainIdRouteChildren = {
   ChainsChainIdAktiviteterRoute: ChainsChainIdAktiviteterRoute,
   ChainsChainIdBrukereRoute: ChainsChainIdBrukereRoute,
-  ChainsChainIdFilialerRoute: ChainsChainIdFilialerRoute,
-  ChainsChainIdLokasjonerRoute: ChainsChainIdLokasjonerRoute,
+  ChainsChainIdRegionerRoute: ChainsChainIdRegionerRoute,
+  ChainsChainIdSentreRoute: ChainsChainIdSentreRoute,
   ChainsChainIdIndexRoute: ChainsChainIdIndexRoute,
 }
 
