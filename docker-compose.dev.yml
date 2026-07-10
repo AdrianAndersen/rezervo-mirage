@@ -1,0 +1,48 @@
+name: "mirage"
+services:
+  mirage:
+    container_name: mirage
+    build:
+      context: .
+      target: dev
+    restart: unless-stopped
+    command: sh -c "bunx prisma migrate deploy && bunx prisma generate && bun run dev"
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: postgresql://rezervo-mirage:rezervo-mirage@db:5432/rezervo-mirage
+      ADMIN_AUTH_DISABLED: "1"
+      ADMIN_SESSION_SECRET: dev-secret-at-least-32-characters-long
+    volumes:
+      - ./src:/app/src
+      - ./prisma:/app/prisma
+      - ./public:/app/public
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: mirage-db
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rezervo-mirage
+      POSTGRES_PASSWORD: rezervo-mirage
+      POSTGRES_DB: rezervo-mirage
+    # host port 5433 (not 5432) so the dev db can run alongside the rezervo
+    # backend's db without clashing; the app still connects over db:5432 inside
+    # the compose network
+    ports:
+      - "5433:5432"
+    volumes:
+      # postgres:18 wants the mount at the parent dir (data lives in a
+      # version subdirectory); mounting /var/lib/postgresql/data errors out
+      - dev-db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rezervo-mirage -d rezervo-mirage"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  dev-db-data:

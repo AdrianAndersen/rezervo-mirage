@@ -114,7 +114,7 @@ function ChainsLanding() {
           <Title order={1} fw={700} style={{ letterSpacing: "-0.03em" }}>
             Kjeder
           </Title>
-          <Text c={"dimmed"}>Velg en kjede å jobbe med, eller opprett en ny.</Text>
+          <Text c={"dimmed"}>Velg en kjede, eller opprett en ny.</Text>
         </Stack>
 
         {isLoading ? (

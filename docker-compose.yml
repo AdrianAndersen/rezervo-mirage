@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "4000:4000"
     environment:
       DATABASE_URL: postgresql://rezervo-mirage:rezervo-mirage@db:5432/rezervo-mirage
       ADMIN_AUTH_DISABLED: ${ADMIN_AUTH_DISABLED:-1}

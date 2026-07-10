@@ -21,6 +21,13 @@ RUN mkdir -p /temp/prod
 COPY package.json bun.lock /temp/prod/
 RUN cd /temp/prod && bun install --frozen-lockfile --production --ignore-scripts
 
+FROM base AS dev
+COPY --from=install /temp/dev/node_modules node_modules
+COPY --from=install /temp/dev/generated generated
+COPY . .
+ENV NODE_ENV=development
+EXPOSE 4000/tcp
+
 # copy node_modules from temp directory
 # then copy all (non-ignored) project files into the image
 FROM base AS prerelease
@@ -40,12 +47,12 @@ COPY --from=prerelease /app/.output .output
 COPY --from=prerelease /app/package.json .
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=4000
 
 USER bun
-EXPOSE 3000/tcp
+EXPOSE 4000/tcp
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD bun -e "fetch('http://localhost:3000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+  CMD bun -e "fetch('http://localhost:4000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
 
 ENTRYPOINT [ "bun", ".output/server/index.mjs" ]

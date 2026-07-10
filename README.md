@@ -2,25 +2,38 @@
 
 ###### A mirage of a gym — fake classes, fake users, real API — for testing rezervo. 🏜️
 
-## Requirements
+## Develop
 
-- [Bun](https://bun.sh) (see `packageManager` in `package.json`)
-- A PostgreSQL database
+```sh
+docker compose -f docker-compose.dev.yml up --build -d
+```
 
-## Setup
+This starts the dev server (`mirage`) and an isolated PostgreSQL (`mirage-db`)
+in the background; they stay alive and restart automatically. The app is served
+at [http://localhost:4000](http://localhost:4000).
+
+```sh
+docker compose -f docker-compose.dev.yml logs -f mirage   # follow logs
+docker compose -f docker-compose.dev.yml down             # stop
+```
+
+Linting, formatting, typechecking and tests run directly with [Bun](https://bun.sh):
+
+```sh
+bun run fix
+bun run test
+```
+
+### Without Docker
+
+Requires [Bun](https://bun.sh) (see `packageManager` in `package.json`) and a
+reachable PostgreSQL database.
 
 ```sh
 bun install
 cp .env.example .env      # then edit DATABASE_URL (and admin auth, see below)
 bunx prisma migrate dev   # apply migrations + generate the client
-```
-
-## Develop
-
-```sh
-bun run dev        # start the dev server (Vite)
-bun run fix        # lint --fix + typecheck + format (run before committing)
-bun run test       # run the test suite (Vitest)
+bun run dev               # start the dev server (Vite) on http://localhost:4000
 ```
 
 ## Build & run
