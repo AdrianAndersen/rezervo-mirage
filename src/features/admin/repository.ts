@@ -18,6 +18,10 @@ export function getChain(id: number) {
   return prisma.chain.findUnique({ where: { id } });
 }
 
+export function getChainByIdentifier(identifier: string) {
+  return prisma.chain.findUnique({ where: { identifier } });
+}
+
 export function createChain(data: { identifier: string; name: string }) {
   return prisma.chain.create({ data });
 }

@@ -9,11 +9,11 @@ import ColorSchemeToggle from "./ColorSchemeToggle";
 import LogoutButton from "./LogoutButton";
 
 const NAV_ITEMS = [
-  { label: "Timer", to: "/chains/$chainId", icon: IconCalendarWeek, exact: true },
-  { label: "Regioner", to: "/chains/$chainId/regioner", icon: IconMap },
-  { label: "Sentre", to: "/chains/$chainId/sentre", icon: IconMapPin },
-  { label: "Aktiviteter", to: "/chains/$chainId/aktiviteter", icon: IconBarbell },
-  { label: "Brukere", to: "/chains/$chainId/brukere", icon: IconUsers },
+  { label: "Timer", to: "/kjeder/$chainSlug", icon: IconCalendarWeek, exact: true },
+  { label: "Regioner", to: "/kjeder/$chainSlug/regioner", icon: IconMap },
+  { label: "Sentre", to: "/kjeder/$chainSlug/sentre", icon: IconMapPin },
+  { label: "Timetyper", to: "/kjeder/$chainSlug/timetyper", icon: IconBarbell },
+  { label: "Brukere", to: "/kjeder/$chainSlug/brukere", icon: IconUsers },
 ] as const;
 
 function Wordmark() {
@@ -40,10 +40,10 @@ function Wordmark() {
 }
 
 export default function AdminShell({
-  chainId,
+  chain,
   children,
 }: {
-  chainId: number;
+  chain: { id: number; identifier: string; name: string };
   children: ReactNode;
 }) {
   const [opened, { toggle, close }] = useDisclosure(false);
@@ -62,7 +62,7 @@ export default function AdminShell({
             <Wordmark />
           </Group>
           <Group gap={"xs"} wrap={"nowrap"}>
-            <ChainSwitcher chainId={chainId} />
+            <ChainSwitcher chainId={chain.id} />
             <ColorSchemeToggle />
             <LogoutButton />
           </Group>
@@ -71,7 +71,7 @@ export default function AdminShell({
 
       <AppShell.Navbar p={"sm"}>
         {NAV_ITEMS.map((item) => {
-          const href = item.to.replace("$chainId", String(chainId));
+          const href = item.to.replace("$chainSlug", chain.identifier);
           const exact = "exact" in item && item.exact;
           const active = exact ? pathname === href : pathname.startsWith(href);
           return (
@@ -79,7 +79,7 @@ export default function AdminShell({
               key={item.to}
               data-testid={`nav-${item.label.toLowerCase()}`}
               renderRoot={(props) => (
-                <Link to={item.to} params={{ chainId: String(chainId) }} {...props} />
+                <Link to={item.to} params={{ chainSlug: chain.identifier }} {...props} />
               )}
               label={item.label}
               leftSection={<item.icon size={19} stroke={1.6} />}

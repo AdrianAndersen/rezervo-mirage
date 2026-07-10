@@ -6,6 +6,7 @@ import BranchForm, { type BranchFormValues } from "@/features/admin/components/f
 import CrudTable, { SlugCell, type Column } from "@/features/admin/components/ui/CrudTable";
 import PageHeader from "@/features/admin/components/ui/PageHeader";
 import { confirmDelete } from "@/features/admin/components/ui/confirmDelete";
+import { useChain } from "@/features/admin/hooks/useChain";
 import { useEditorModal } from "@/features/admin/hooks/useEditorModal";
 import {
   type Branch,
@@ -17,7 +18,7 @@ import {
 } from "@/features/admin/server";
 import { showErrorNotification, showSuccessNotification } from "@/shared/utils/notifications";
 
-export const Route = createFileRoute("/chains/$chainId/regioner")({
+export const Route = createFileRoute("/kjeder/$chainSlug/regioner")({
   component: BranchesPage,
 });
 
@@ -35,7 +36,7 @@ const columns: Column<Branch>[] = [
 ];
 
 function BranchesPage() {
-  const chainId = Number(Route.useParams().chainId);
+  const chainId = useChain().id;
   const { data, isLoading } = useQuery(branchesQuery(chainId));
   const editor = useEditorModal<Branch>();
   const queryClient = useQueryClient();
@@ -68,7 +69,7 @@ function BranchesPage() {
     <Container size={"md"} px={0}>
       <PageHeader
         title={"Regioner"}
-        subtitle={"Grupper sentre under en region."}
+        subtitle={"Geografiske områder som kan ha flere sentre."}
         actionLabel={"Ny region"}
         onAction={editor.openCreate}
       />

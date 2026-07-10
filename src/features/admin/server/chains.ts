@@ -3,7 +3,7 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { adminAuthMiddleware } from "@/features/admin/auth/middleware";
 
-import { chainCreateSchema, chainUpdateSchema, idSchema } from "@/features/admin/schemas";
+import { chainCreateSchema, chainSlugSchema, chainUpdateSchema, idSchema } from "@/features/admin/schemas";
 import { runRepo } from "@/features/admin/server/errors";
 import { pruneUndefined } from "@/features/admin/server/prune";
 import * as repo from "@/features/admin/repository";
@@ -11,6 +11,7 @@ import * as repo from "@/features/admin/repository";
 export const chainKeys = {
   all: ["chains"] as const,
   detail: (id: number) => ["chains", id] as const,
+  slug: (identifier: string) => ["chains", "slug", identifier] as const,
 };
 
 export const listChainsFn = createServerFn()
@@ -21,6 +22,11 @@ export const getChainFn = createServerFn()
   .middleware([adminAuthMiddleware])
   .validator(idSchema)
   .handler(({ data }) => runRepo(() => repo.getChain(data.id)));
+
+export const getChainBySlugFn = createServerFn()
+  .middleware([adminAuthMiddleware])
+  .validator(chainSlugSchema)
+  .handler(({ data }) => runRepo(() => repo.getChainByIdentifier(data.identifier)));
 
 export const createChainFn = createServerFn({ method: "POST" })
   .middleware([adminAuthMiddleware])
@@ -46,3 +52,9 @@ export const chainsQuery = () =>
 
 export const chainQuery = (id: number) =>
   queryOptions({ queryKey: chainKeys.detail(id), queryFn: () => getChainFn({ data: { id } }) });
+
+export const chainBySlugQuery = (identifier: string) =>
+  queryOptions({
+    queryKey: chainKeys.slug(identifier),
+    queryFn: () => getChainBySlugFn({ data: { identifier } }),
+  });

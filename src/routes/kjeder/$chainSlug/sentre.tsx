@@ -8,6 +8,7 @@ import LocationForm, {
 import CrudTable, { SlugCell, type Column } from "@/features/admin/components/ui/CrudTable";
 import PageHeader from "@/features/admin/components/ui/PageHeader";
 import { confirmDelete } from "@/features/admin/components/ui/confirmDelete";
+import { useChain } from "@/features/admin/hooks/useChain";
 import { useEditorModal } from "@/features/admin/hooks/useEditorModal";
 import {
   type Location,
@@ -20,7 +21,7 @@ import {
 } from "@/features/admin/server";
 import { showErrorNotification, showSuccessNotification } from "@/shared/utils/notifications";
 
-export const Route = createFileRoute("/chains/$chainId/sentre")({
+export const Route = createFileRoute("/kjeder/$chainSlug/sentre")({
   component: LocationsPage,
 });
 
@@ -38,7 +39,7 @@ const columns: Column<Location>[] = [
 ];
 
 function LocationsPage() {
-  const chainId = Number(Route.useParams().chainId);
+  const chainId = useChain().id;
   const { data, isLoading } = useQuery(locationsQuery(chainId));
   const { data: branches } = useQuery(branchesQuery(chainId));
   const editor = useEditorModal<Location>();
@@ -78,7 +79,7 @@ function LocationsPage() {
     <Container size={"md"} px={0}>
       <PageHeader
         title={"Sentre"}
-        subtitle={"Stedene der timer holdes."}
+        subtitle={"De fysiske treningssentrene i hver region."}
         actionLabel={"Nytt senter"}
         onAction={editor.openCreate}
       />

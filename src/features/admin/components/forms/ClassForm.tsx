@@ -101,7 +101,7 @@ export default function ClassForm({
         <form.AppField name={"activityId"}>
           {(field) => (
             <field.SelectField
-              label={"Aktivitet"}
+              label={"Timetype"}
               required
               searchable
               data={activities.map((a) => ({

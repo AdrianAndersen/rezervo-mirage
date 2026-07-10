@@ -12,15 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ChainsChainIdRouteImport } from './routes/chains/$chainId'
+import { Route as KjederChainSlugRouteImport } from './routes/kjeder/$chainSlug'
 import { Route as ApiOpenapiDotjsonRouteImport } from './routes/api/openapi[.]json'
 import { Route as ApiDocsRouteImport } from './routes/api/docs'
-import { Route as ChainsChainIdIndexRouteImport } from './routes/chains/$chainId/index'
+import { Route as KjederChainSlugIndexRouteImport } from './routes/kjeder/$chainSlug/index'
 import { Route as ApiChainsIndexRouteImport } from './routes/api/chains/index'
-import { Route as ChainsChainIdSentreRouteImport } from './routes/chains/$chainId/sentre'
-import { Route as ChainsChainIdRegionerRouteImport } from './routes/chains/$chainId/regioner'
-import { Route as ChainsChainIdBrukereRouteImport } from './routes/chains/$chainId/brukere'
-import { Route as ChainsChainIdAktiviteterRouteImport } from './routes/chains/$chainId/aktiviteter'
+import { Route as KjederChainSlugTimetyperRouteImport } from './routes/kjeder/$chainSlug/timetyper'
+import { Route as KjederChainSlugSentreRouteImport } from './routes/kjeder/$chainSlug/sentre'
+import { Route as KjederChainSlugRegionerRouteImport } from './routes/kjeder/$chainSlug/regioner'
+import { Route as KjederChainSlugBrukereRouteImport } from './routes/kjeder/$chainSlug/brukere'
 import { Route as ApiChainsChainIdentifierIndexRouteImport } from './routes/api/chains/$chainIdentifier/index'
 import { Route as ApiChainsChainIdentifierSessionsRouteImport } from './routes/api/chains/$chainIdentifier/sessions'
 import { Route as ApiChainsChainIdentifierScheduleRouteImport } from './routes/api/chains/$chainIdentifier/schedule'
@@ -44,9 +44,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChainsChainIdRoute = ChainsChainIdRouteImport.update({
-  id: '/chains/$chainId',
-  path: '/chains/$chainId',
+const KjederChainSlugRoute = KjederChainSlugRouteImport.update({
+  id: '/kjeder/$chainSlug',
+  path: '/kjeder/$chainSlug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiOpenapiDotjsonRoute = ApiOpenapiDotjsonRouteImport.update({
@@ -59,37 +59,37 @@ const ApiDocsRoute = ApiDocsRouteImport.update({
   path: '/api/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChainsChainIdIndexRoute = ChainsChainIdIndexRouteImport.update({
+const KjederChainSlugIndexRoute = KjederChainSlugIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ChainsChainIdRoute,
+  getParentRoute: () => KjederChainSlugRoute,
 } as any)
 const ApiChainsIndexRoute = ApiChainsIndexRouteImport.update({
   id: '/api/chains/',
   path: '/api/chains/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChainsChainIdSentreRoute = ChainsChainIdSentreRouteImport.update({
+const KjederChainSlugTimetyperRoute =
+  KjederChainSlugTimetyperRouteImport.update({
+    id: '/timetyper',
+    path: '/timetyper',
+    getParentRoute: () => KjederChainSlugRoute,
+  } as any)
+const KjederChainSlugSentreRoute = KjederChainSlugSentreRouteImport.update({
   id: '/sentre',
   path: '/sentre',
-  getParentRoute: () => ChainsChainIdRoute,
+  getParentRoute: () => KjederChainSlugRoute,
 } as any)
-const ChainsChainIdRegionerRoute = ChainsChainIdRegionerRouteImport.update({
+const KjederChainSlugRegionerRoute = KjederChainSlugRegionerRouteImport.update({
   id: '/regioner',
   path: '/regioner',
-  getParentRoute: () => ChainsChainIdRoute,
+  getParentRoute: () => KjederChainSlugRoute,
 } as any)
-const ChainsChainIdBrukereRoute = ChainsChainIdBrukereRouteImport.update({
+const KjederChainSlugBrukereRoute = KjederChainSlugBrukereRouteImport.update({
   id: '/brukere',
   path: '/brukere',
-  getParentRoute: () => ChainsChainIdRoute,
+  getParentRoute: () => KjederChainSlugRoute,
 } as any)
-const ChainsChainIdAktiviteterRoute =
-  ChainsChainIdAktiviteterRouteImport.update({
-    id: '/aktiviteter',
-    path: '/aktiviteter',
-    getParentRoute: () => ChainsChainIdRoute,
-  } as any)
 const ApiChainsChainIdentifierIndexRoute =
   ApiChainsChainIdentifierIndexRouteImport.update({
     id: '/api/chains/$chainIdentifier/',
@@ -139,13 +139,13 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/api/docs': typeof ApiDocsRoute
   '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
-  '/chains/$chainId': typeof ChainsChainIdRouteWithChildren
-  '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
-  '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
-  '/chains/$chainId/regioner': typeof ChainsChainIdRegionerRoute
-  '/chains/$chainId/sentre': typeof ChainsChainIdSentreRoute
+  '/kjeder/$chainSlug': typeof KjederChainSlugRouteWithChildren
+  '/kjeder/$chainSlug/brukere': typeof KjederChainSlugBrukereRoute
+  '/kjeder/$chainSlug/regioner': typeof KjederChainSlugRegionerRoute
+  '/kjeder/$chainSlug/sentre': typeof KjederChainSlugSentreRoute
+  '/kjeder/$chainSlug/timetyper': typeof KjederChainSlugTimetyperRoute
   '/api/chains/': typeof ApiChainsIndexRoute
-  '/chains/$chainId/': typeof ChainsChainIdIndexRoute
+  '/kjeder/$chainSlug/': typeof KjederChainSlugIndexRoute
   '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
   '/api/chains/$chainIdentifier/sessions': typeof ApiChainsChainIdentifierSessionsRoute
   '/api/chains/$chainIdentifier/': typeof ApiChainsChainIdentifierIndexRoute
@@ -160,12 +160,12 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/api/docs': typeof ApiDocsRoute
   '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
-  '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
-  '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
-  '/chains/$chainId/regioner': typeof ChainsChainIdRegionerRoute
-  '/chains/$chainId/sentre': typeof ChainsChainIdSentreRoute
+  '/kjeder/$chainSlug/brukere': typeof KjederChainSlugBrukereRoute
+  '/kjeder/$chainSlug/regioner': typeof KjederChainSlugRegionerRoute
+  '/kjeder/$chainSlug/sentre': typeof KjederChainSlugSentreRoute
+  '/kjeder/$chainSlug/timetyper': typeof KjederChainSlugTimetyperRoute
   '/api/chains': typeof ApiChainsIndexRoute
-  '/chains/$chainId': typeof ChainsChainIdIndexRoute
+  '/kjeder/$chainSlug': typeof KjederChainSlugIndexRoute
   '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
   '/api/chains/$chainIdentifier/sessions': typeof ApiChainsChainIdentifierSessionsRoute
   '/api/chains/$chainIdentifier': typeof ApiChainsChainIdentifierIndexRoute
@@ -181,13 +181,13 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/api/docs': typeof ApiDocsRoute
   '/api/openapi.json': typeof ApiOpenapiDotjsonRoute
-  '/chains/$chainId': typeof ChainsChainIdRouteWithChildren
-  '/chains/$chainId/aktiviteter': typeof ChainsChainIdAktiviteterRoute
-  '/chains/$chainId/brukere': typeof ChainsChainIdBrukereRoute
-  '/chains/$chainId/regioner': typeof ChainsChainIdRegionerRoute
-  '/chains/$chainId/sentre': typeof ChainsChainIdSentreRoute
+  '/kjeder/$chainSlug': typeof KjederChainSlugRouteWithChildren
+  '/kjeder/$chainSlug/brukere': typeof KjederChainSlugBrukereRoute
+  '/kjeder/$chainSlug/regioner': typeof KjederChainSlugRegionerRoute
+  '/kjeder/$chainSlug/sentre': typeof KjederChainSlugSentreRoute
+  '/kjeder/$chainSlug/timetyper': typeof KjederChainSlugTimetyperRoute
   '/api/chains/': typeof ApiChainsIndexRoute
-  '/chains/$chainId/': typeof ChainsChainIdIndexRoute
+  '/kjeder/$chainSlug/': typeof KjederChainSlugIndexRoute
   '/api/chains/$chainIdentifier/schedule': typeof ApiChainsChainIdentifierScheduleRoute
   '/api/chains/$chainIdentifier/sessions': typeof ApiChainsChainIdentifierSessionsRoute
   '/api/chains/$chainIdentifier/': typeof ApiChainsChainIdentifierIndexRoute
@@ -204,13 +204,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/api/docs'
     | '/api/openapi.json'
-    | '/chains/$chainId'
-    | '/chains/$chainId/aktiviteter'
-    | '/chains/$chainId/brukere'
-    | '/chains/$chainId/regioner'
-    | '/chains/$chainId/sentre'
+    | '/kjeder/$chainSlug'
+    | '/kjeder/$chainSlug/brukere'
+    | '/kjeder/$chainSlug/regioner'
+    | '/kjeder/$chainSlug/sentre'
+    | '/kjeder/$chainSlug/timetyper'
     | '/api/chains/'
-    | '/chains/$chainId/'
+    | '/kjeder/$chainSlug/'
     | '/api/chains/$chainIdentifier/schedule'
     | '/api/chains/$chainIdentifier/sessions'
     | '/api/chains/$chainIdentifier/'
@@ -225,12 +225,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/api/docs'
     | '/api/openapi.json'
-    | '/chains/$chainId/aktiviteter'
-    | '/chains/$chainId/brukere'
-    | '/chains/$chainId/regioner'
-    | '/chains/$chainId/sentre'
+    | '/kjeder/$chainSlug/brukere'
+    | '/kjeder/$chainSlug/regioner'
+    | '/kjeder/$chainSlug/sentre'
+    | '/kjeder/$chainSlug/timetyper'
     | '/api/chains'
-    | '/chains/$chainId'
+    | '/kjeder/$chainSlug'
     | '/api/chains/$chainIdentifier/schedule'
     | '/api/chains/$chainIdentifier/sessions'
     | '/api/chains/$chainIdentifier'
@@ -245,13 +245,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/api/docs'
     | '/api/openapi.json'
-    | '/chains/$chainId'
-    | '/chains/$chainId/aktiviteter'
-    | '/chains/$chainId/brukere'
-    | '/chains/$chainId/regioner'
-    | '/chains/$chainId/sentre'
+    | '/kjeder/$chainSlug'
+    | '/kjeder/$chainSlug/brukere'
+    | '/kjeder/$chainSlug/regioner'
+    | '/kjeder/$chainSlug/sentre'
+    | '/kjeder/$chainSlug/timetyper'
     | '/api/chains/'
-    | '/chains/$chainId/'
+    | '/kjeder/$chainSlug/'
     | '/api/chains/$chainIdentifier/schedule'
     | '/api/chains/$chainIdentifier/sessions'
     | '/api/chains/$chainIdentifier/'
@@ -267,7 +267,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ApiDocsRoute: typeof ApiDocsRoute
   ApiOpenapiDotjsonRoute: typeof ApiOpenapiDotjsonRoute
-  ChainsChainIdRoute: typeof ChainsChainIdRouteWithChildren
+  KjederChainSlugRoute: typeof KjederChainSlugRouteWithChildren
   ApiChainsIndexRoute: typeof ApiChainsIndexRoute
   ApiChainsChainIdentifierScheduleRoute: typeof ApiChainsChainIdentifierScheduleRoute
   ApiChainsChainIdentifierSessionsRoute: typeof ApiChainsChainIdentifierSessionsRoute
@@ -301,11 +301,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/chains/$chainId': {
-      id: '/chains/$chainId'
-      path: '/chains/$chainId'
-      fullPath: '/chains/$chainId'
-      preLoaderRoute: typeof ChainsChainIdRouteImport
+    '/kjeder/$chainSlug': {
+      id: '/kjeder/$chainSlug'
+      path: '/kjeder/$chainSlug'
+      fullPath: '/kjeder/$chainSlug'
+      preLoaderRoute: typeof KjederChainSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/openapi.json': {
@@ -322,12 +322,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDocsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/chains/$chainId/': {
-      id: '/chains/$chainId/'
+    '/kjeder/$chainSlug/': {
+      id: '/kjeder/$chainSlug/'
       path: '/'
-      fullPath: '/chains/$chainId/'
-      preLoaderRoute: typeof ChainsChainIdIndexRouteImport
-      parentRoute: typeof ChainsChainIdRoute
+      fullPath: '/kjeder/$chainSlug/'
+      preLoaderRoute: typeof KjederChainSlugIndexRouteImport
+      parentRoute: typeof KjederChainSlugRoute
     }
     '/api/chains/': {
       id: '/api/chains/'
@@ -336,33 +336,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChainsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/chains/$chainId/sentre': {
-      id: '/chains/$chainId/sentre'
+    '/kjeder/$chainSlug/timetyper': {
+      id: '/kjeder/$chainSlug/timetyper'
+      path: '/timetyper'
+      fullPath: '/kjeder/$chainSlug/timetyper'
+      preLoaderRoute: typeof KjederChainSlugTimetyperRouteImport
+      parentRoute: typeof KjederChainSlugRoute
+    }
+    '/kjeder/$chainSlug/sentre': {
+      id: '/kjeder/$chainSlug/sentre'
       path: '/sentre'
-      fullPath: '/chains/$chainId/sentre'
-      preLoaderRoute: typeof ChainsChainIdSentreRouteImport
-      parentRoute: typeof ChainsChainIdRoute
+      fullPath: '/kjeder/$chainSlug/sentre'
+      preLoaderRoute: typeof KjederChainSlugSentreRouteImport
+      parentRoute: typeof KjederChainSlugRoute
     }
-    '/chains/$chainId/regioner': {
-      id: '/chains/$chainId/regioner'
+    '/kjeder/$chainSlug/regioner': {
+      id: '/kjeder/$chainSlug/regioner'
       path: '/regioner'
-      fullPath: '/chains/$chainId/regioner'
-      preLoaderRoute: typeof ChainsChainIdRegionerRouteImport
-      parentRoute: typeof ChainsChainIdRoute
+      fullPath: '/kjeder/$chainSlug/regioner'
+      preLoaderRoute: typeof KjederChainSlugRegionerRouteImport
+      parentRoute: typeof KjederChainSlugRoute
     }
-    '/chains/$chainId/brukere': {
-      id: '/chains/$chainId/brukere'
+    '/kjeder/$chainSlug/brukere': {
+      id: '/kjeder/$chainSlug/brukere'
       path: '/brukere'
-      fullPath: '/chains/$chainId/brukere'
-      preLoaderRoute: typeof ChainsChainIdBrukereRouteImport
-      parentRoute: typeof ChainsChainIdRoute
-    }
-    '/chains/$chainId/aktiviteter': {
-      id: '/chains/$chainId/aktiviteter'
-      path: '/aktiviteter'
-      fullPath: '/chains/$chainId/aktiviteter'
-      preLoaderRoute: typeof ChainsChainIdAktiviteterRouteImport
-      parentRoute: typeof ChainsChainIdRoute
+      fullPath: '/kjeder/$chainSlug/brukere'
+      preLoaderRoute: typeof KjederChainSlugBrukereRouteImport
+      parentRoute: typeof KjederChainSlugRoute
     }
     '/api/chains/$chainIdentifier/': {
       id: '/api/chains/$chainIdentifier/'
@@ -416,24 +416,24 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface ChainsChainIdRouteChildren {
-  ChainsChainIdAktiviteterRoute: typeof ChainsChainIdAktiviteterRoute
-  ChainsChainIdBrukereRoute: typeof ChainsChainIdBrukereRoute
-  ChainsChainIdRegionerRoute: typeof ChainsChainIdRegionerRoute
-  ChainsChainIdSentreRoute: typeof ChainsChainIdSentreRoute
-  ChainsChainIdIndexRoute: typeof ChainsChainIdIndexRoute
+interface KjederChainSlugRouteChildren {
+  KjederChainSlugBrukereRoute: typeof KjederChainSlugBrukereRoute
+  KjederChainSlugRegionerRoute: typeof KjederChainSlugRegionerRoute
+  KjederChainSlugSentreRoute: typeof KjederChainSlugSentreRoute
+  KjederChainSlugTimetyperRoute: typeof KjederChainSlugTimetyperRoute
+  KjederChainSlugIndexRoute: typeof KjederChainSlugIndexRoute
 }
 
-const ChainsChainIdRouteChildren: ChainsChainIdRouteChildren = {
-  ChainsChainIdAktiviteterRoute: ChainsChainIdAktiviteterRoute,
-  ChainsChainIdBrukereRoute: ChainsChainIdBrukereRoute,
-  ChainsChainIdRegionerRoute: ChainsChainIdRegionerRoute,
-  ChainsChainIdSentreRoute: ChainsChainIdSentreRoute,
-  ChainsChainIdIndexRoute: ChainsChainIdIndexRoute,
+const KjederChainSlugRouteChildren: KjederChainSlugRouteChildren = {
+  KjederChainSlugBrukereRoute: KjederChainSlugBrukereRoute,
+  KjederChainSlugRegionerRoute: KjederChainSlugRegionerRoute,
+  KjederChainSlugSentreRoute: KjederChainSlugSentreRoute,
+  KjederChainSlugTimetyperRoute: KjederChainSlugTimetyperRoute,
+  KjederChainSlugIndexRoute: KjederChainSlugIndexRoute,
 }
 
-const ChainsChainIdRouteWithChildren = ChainsChainIdRoute._addFileChildren(
-  ChainsChainIdRouteChildren,
+const KjederChainSlugRouteWithChildren = KjederChainSlugRoute._addFileChildren(
+  KjederChainSlugRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
@@ -442,7 +442,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ApiDocsRoute: ApiDocsRoute,
   ApiOpenapiDotjsonRoute: ApiOpenapiDotjsonRoute,
-  ChainsChainIdRoute: ChainsChainIdRouteWithChildren,
+  KjederChainSlugRoute: KjederChainSlugRouteWithChildren,
   ApiChainsIndexRoute: ApiChainsIndexRoute,
   ApiChainsChainIdentifierScheduleRoute: ApiChainsChainIdentifierScheduleRoute,
   ApiChainsChainIdentifierSessionsRoute: ApiChainsChainIdentifierSessionsRoute,

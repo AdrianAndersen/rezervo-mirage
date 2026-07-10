@@ -5,6 +5,7 @@ import dayjs, { type Dayjs } from "dayjs";
 import { useMemo, useState } from "react";
 
 import ClassEditorModal from "@/features/admin/components/schedule/ClassEditorModal";
+import { useChain } from "@/features/admin/hooks/useChain";
 import WeekGrid from "@/features/admin/components/schedule/WeekGrid";
 import WeekNavigator from "@/features/admin/components/schedule/WeekNavigator";
 import {
@@ -15,7 +16,7 @@ import {
 } from "@/features/admin/server";
 import { startOfWeek, weekDays } from "@/features/admin/week";
 
-export const Route = createFileRoute("/chains/$chainId/")({
+export const Route = createFileRoute("/kjeder/$chainSlug/")({
   component: TimerPage,
 });
 
@@ -29,7 +30,7 @@ interface EditorState {
 }
 
 function TimerPage() {
-  const chainId = Number(Route.useParams().chainId);
+  const chainId = useChain().id;
   const [anchor, setAnchor] = useState<Dayjs>(() => startOfWeek(dayjs()));
   const [selectedLocationIds, setSelectedLocationIds] = useState<string[]>([]);
   const [editor, setEditor] = useState<EditorState>({
@@ -87,7 +88,7 @@ function TimerPage() {
 
       {!canCreate && (
         <Alert color={"gray"} mb={"md"} variant={"light"}>
-          Opprett minst ett senter og én aktivitet før du kan lage timer.
+          Opprett minst ett senter og én timetype før du kan lage timer.
         </Alert>
       )}
 

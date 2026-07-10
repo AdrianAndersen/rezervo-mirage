@@ -13,6 +13,9 @@ const optionalText = z
 /** Shared path-parameter shape for single-row functions (get/update/delete). */
 export const idSchema = z.object({ id: z.number().int() });
 
+/** Path-parameter shape for resolving a chain by its URL slug (identifier). */
+export const chainSlugSchema = z.object({ identifier: requiredText });
+
 // ---------------------------------------------------------------------------
 // Chains
 // ---------------------------------------------------------------------------

@@ -27,7 +27,7 @@ export default function ChainSwitcher({ chainId }: { chainId: number }) {
           <Menu.Item
             key={chain.id}
             onClick={() =>
-              navigate({ to: "/chains/$chainId", params: { chainId: String(chain.id) } })
+              navigate({ to: "/kjeder/$chainSlug", params: { chainSlug: chain.identifier } })
             }
             {...(chain.id === chainId ? { bg: "var(--mantine-primary-color-light)" } : {})}
           >

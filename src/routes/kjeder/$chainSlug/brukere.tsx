@@ -8,6 +8,7 @@ import UserForm, { type UserFormValues } from "@/features/admin/components/forms
 import CrudTable, { SlugCell, type Column } from "@/features/admin/components/ui/CrudTable";
 import PageHeader from "@/features/admin/components/ui/PageHeader";
 import { confirmDelete } from "@/features/admin/components/ui/confirmDelete";
+import { useChain } from "@/features/admin/hooks/useChain";
 import { useEditorModal } from "@/features/admin/hooks/useEditorModal";
 import {
   type User,
@@ -19,7 +20,7 @@ import {
 } from "@/features/admin/server";
 import { showErrorNotification, showSuccessNotification } from "@/shared/utils/notifications";
 
-export const Route = createFileRoute("/chains/$chainId/brukere")({
+export const Route = createFileRoute("/kjeder/$chainSlug/brukere")({
   component: UsersPage,
 });
 
@@ -74,7 +75,7 @@ const columns: Column<User>[] = [
 ];
 
 function UsersPage() {
-  const chainId = Number(Route.useParams().chainId);
+  const chainId = useChain().id;
   const { data, isLoading } = useQuery(usersQuery(chainId));
   const editor = useEditorModal<User>();
   const queryClient = useQueryClient();

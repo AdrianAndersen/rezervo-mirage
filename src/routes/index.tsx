@@ -129,8 +129,8 @@ function ChainsLanding() {
                 chain={chain}
                 onOpen={() =>
                   navigate({
-                    to: "/chains/$chainId",
-                    params: { chainId: String(chain.id) },
+                    to: "/kjeder/$chainSlug",
+                    params: { chainSlug: chain.identifier },
                   })
                 }
                 onEdit={() => editor.openEdit(chain)}
@@ -232,7 +232,7 @@ function ChainCard({
           {chain._count?.branches ?? 0} filialer
         </Badge>
         <Badge variant={"light"} color={"gray"}>
-          {chain._count?.activities ?? 0} aktiviteter
+          {chain._count?.activities ?? 0} timetyper
         </Badge>
         <Badge variant={"light"} color={"gray"}>
           {chain._count?.users ?? 0} brukere

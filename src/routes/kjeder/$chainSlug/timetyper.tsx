@@ -8,6 +8,7 @@ import ActivityForm, {
 import CrudTable, { type Column } from "@/features/admin/components/ui/CrudTable";
 import PageHeader from "@/features/admin/components/ui/PageHeader";
 import { confirmDelete } from "@/features/admin/components/ui/confirmDelete";
+import { useChain } from "@/features/admin/hooks/useChain";
 import { useEditorModal } from "@/features/admin/hooks/useEditorModal";
 import {
   type Activity,
@@ -19,13 +20,13 @@ import {
 } from "@/features/admin/server";
 import { showErrorNotification, showSuccessNotification } from "@/shared/utils/notifications";
 
-export const Route = createFileRoute("/chains/$chainId/aktiviteter")({
+export const Route = createFileRoute("/kjeder/$chainSlug/timetyper")({
   component: ActivitiesPage,
 });
 
 const columns: Column<Activity>[] = [
   {
-    header: "Aktivitet",
+    header: "Timetype",
     render: (a) => (
       <Group gap={"sm"} wrap={"nowrap"}>
         <Box w={14} h={14} style={{ borderRadius: 4, background: a.color, flexShrink: 0 }} />
@@ -46,7 +47,7 @@ const columns: Column<Activity>[] = [
 ];
 
 function ActivitiesPage() {
-  const chainId = Number(Route.useParams().chainId);
+  const chainId = useChain().id;
   const { data, isLoading } = useQuery(activitiesQuery(chainId));
   const editor = useEditorModal<Activity>();
   const queryClient = useQueryClient();
@@ -78,7 +79,7 @@ function ActivitiesPage() {
     mutationFn: (id: number) => deleteActivityFn({ data: { id } }),
     onSuccess: async () => {
       await invalidate();
-      showSuccessNotification("Aktivitet slettet");
+      showSuccessNotification("Timetype slettet");
     },
     onError: (error: Error) => showErrorNotification(error.message),
   });
@@ -86,20 +87,20 @@ function ActivitiesPage() {
   return (
     <Container size={"md"} px={0}>
       <PageHeader
-        title={"Aktiviteter"}
-        subtitle={"Timetypene som kan planlegges."}
-        actionLabel={"Ny aktivitet"}
+        title={"Timetyper"}
+        subtitle={"Hvilke typer timer som kan settes opp."}
+        actionLabel={"Ny timetype"}
         onAction={editor.openCreate}
       />
       <CrudTable
         columns={columns}
         rows={data}
         isLoading={isLoading}
-        emptyText={"Ingen aktiviteter ennå. Opprett den første."}
+        emptyText={"Ingen timetyper ennå. Opprett den første."}
         onEdit={editor.openEdit}
         onDelete={(a) =>
           confirmDelete({
-            title: "Slett aktivitet",
+            title: "Slett timetype",
             message: `Slett «${a.name}»? Timer som bruker den vil også slettes.`,
             onConfirm: () => remove.mutate(a.id),
           })
@@ -108,7 +109,7 @@ function ActivitiesPage() {
       <Modal
         opened={editor.opened}
         onClose={editor.close}
-        title={editor.item ? "Rediger aktivitet" : "Ny aktivitet"}
+        title={editor.item ? "Rediger timetype" : "Ny timetype"}
         centered
       >
         <ActivityForm

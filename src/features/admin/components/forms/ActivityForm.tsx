@@ -77,7 +77,7 @@ export default function ActivityForm({
           {(field) => (
             <field.TextAreaField
               label={"Beskrivelse"}
-              placeholder={"Kort beskrivelse av aktiviteten"}
+              placeholder={"Kort beskrivelse av timetypen"}
               autosize
               minRows={2}
             />
